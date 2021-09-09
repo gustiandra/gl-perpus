@@ -23,7 +23,7 @@ class RolesTableSeeder extends Seeder
         ]);
 
         Role::create([
-            'name' => 'user'
+            'name' => 'member'
         ]);
     }
 }
