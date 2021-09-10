@@ -1,4 +1,5 @@
 <?php
-Route::get('/dashboard', function () {
-    return 'hai';
-})->name('dashboard');
+
+use App\Http\Controllers\Admin\DashboardController;
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

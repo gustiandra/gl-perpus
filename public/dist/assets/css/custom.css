@@ -1,0 +1,27 @@
+/* @media (min-width:992px) {
+
+} */
+
+.mbc{
+    margin-top: -50px;
+}
+
+.mt-form{
+    margin-top: -30px;
+}
+
+.btn{
+    border-radius: 20px;
+}
+.border-none{
+    border-radius: 0 !important;
+}
+
+.non-center{
+    text-align: left !important;
+}
+
+/* .nav-pills .nav-link.active{
+    background-color: #ffc107;
+    border-color: #ffc107;
+} */
