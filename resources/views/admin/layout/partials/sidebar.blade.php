@@ -21,17 +21,17 @@
                         </a>
                     </li>
 
-                    <li class="sidebar-item has-sub">
+                    <li class="sidebar-item has-sub @if ($active == 'rack') {{ 'active' }} @endif">
                         <a href="#" class='sidebar-link'>
                             <i class="bi bi-book-half"></i>
                             <span>Manajemen Buku</span>
                         </a>
-                        <ul class="submenu">
+                        <ul class="submenu @if ($active == 'rack') {{ 'active' }} @endif">
                             <li class="submenu-item">
                                 <a href="kategori.html">Kategori</a>
                             </li>
-                            <li class="submenu-item ">
-                                <a href="rak.html">Rak</a>
+                            <li class="submenu-item @if ($active == 'rack') {{ 'active' }} @endif">
+                                <a href="{{ route('admin.rack.index') }}">Rak</a>
                             </li>
                             <li class="submenu-item">
                                 <a href="buku.html">Buku</a>

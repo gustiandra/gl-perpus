@@ -1,7 +1,14 @@
 <?php
-// Home
+
+// Dashboard
 Breadcrumbs::for('admin.dashboard', function ($trail) {
     $trail->push('Dashboard', route('admin.dashboard'));
+});
+
+
+// Rack
+Breadcrumbs::for('admin.rack.index', function ($trail) {
+    $trail->push('Rak', route('admin.rack.index'));
 });
 
 // Author Edit
