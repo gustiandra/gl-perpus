@@ -95,6 +95,7 @@ class RackController extends Controller
      */
     public function destroy(Rack $rack)
     {
-        //
+        $rack->delete();
+        return redirect()->route('admin.rack.index');
     }
 }

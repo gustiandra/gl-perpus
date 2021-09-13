@@ -123,10 +123,14 @@
                                 </div>
                             </div>
                             &nbsp;<a href="#" data-bs-toggle="tooltip" data-bs-placement="top"
-                                onclick="deleteConfirm('form', 'C001 - C100')"
+                                onclick="deleteConfirm('deleteForm{{ $item->id }}', '{{ $item->name }}')"
                                 class="btn btn-sm btn-danger" title="Hapus Rak Buku">
-                                <i class=" fas fa-trash-alt"></i>
+                                <i class=" fas fa-trash-alt"></i>                                
                             </a>
+                            <form action="{{ route('admin.rack.destroy', $item->id) }}" method="POST" id="deleteForm{{ $item->id }}">
+                                @csrf
+                                @method('delete')                                
+                            </form>
                         </td>
                     </tr>
                     @endforeach
@@ -147,7 +151,10 @@
         window.deleteConfirm = function (formId, name) {
             Swal.fire({
                 icon: 'question',
-                text: `Hapus Data Rak Buku ${name}?`,
+                // text: `Hapus Data Rak Buku ${name}?`,
+                html: `<h5>Hapus Data Rak Buku ${name}?</h5>
+                    <b>Peringatan</b>: Semua data buku yang ada pada rak juga akan terhapus!!!<br>                
+                `,
                 showCancelButton: true,
                 confirmButtonText: 'Hapus',
                 confirmButtonColor: '#e3342f',

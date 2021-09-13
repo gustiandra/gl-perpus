@@ -11,3 +11,4 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 Route::get('/rak', [RackController::class, 'index'])->name('rack.index');
 Route::post('/rak', [RackController::class, 'store'])->name('rack.store');
 Route::put('/rak{rack}', [RackController::class, 'update'])->name('rack.update');
+Route::delete('/rak{rack}', [RackController::class, 'destroy'])->name('rack.destroy');
