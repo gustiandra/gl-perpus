@@ -15,7 +15,9 @@ class RackController extends Controller
      */
     public function index()
     {
-        return view('admin.rack.index');
+        return view('admin.rack.index', [
+            'racks' => Rack::latest()->get()
+        ]);
     }
 
     /**
@@ -36,7 +38,13 @@ class RackController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'location' => 'required',
+        ]);
+
+        Rack::create($request->all());
+        return redirect()->route('admin.rack.index');
     }
 
     /**

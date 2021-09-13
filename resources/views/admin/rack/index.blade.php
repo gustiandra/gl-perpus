@@ -24,7 +24,8 @@
                                 <i data-feather="x"></i>
                             </button>
                         </div>
-                        <form action="#">
+                        <form action="{{ route('admin.rack.store') }}" method="POST">
+                            @csrf
                             <div class="modal-body">
                                 <label>Rak</label>
                                 <div class="form-group">
@@ -34,7 +35,7 @@
                                 <label>Lokasi</label>
                                 <div class="form-group">
                                     <input type="text" placeholder="Contoh: Gedung A Lantai 2"
-                                        class="form-control" name="lokasi">
+                                        class="form-control" name="location">
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -43,9 +44,8 @@
                                     <i class="bx bx-x d-block d-sm-none"></i>
                                     <span class="d-none d-sm-block">Close</span>
                                 </button>
-                                <button type="button" class="btn btn-primary ml-1"
-                                    data-bs-dismiss="modal">
-                                    <i class="bx bx-check d-block d-sm-none"></i>
+                                <button type="submit" class="btn btn-primary ml-1">
+                                    
                                     <span class="d-none d-sm-block">Simpan</span>
                                 </button>
                             </div>
@@ -63,9 +63,10 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach ($racks as $item)                                            
                     <tr>
-                        <td class="text-center"><a href="rak-buku.html">C001 - C100</a></td>
-                        <td class="text-center">Gedung A</td>
+                        <td class="text-center"><a href="rak-buku.html">{{ $item->name }}</a></td>
+                        <td class="text-center">{{ $item->location }}</td>
                         <td class="text-center">10</td>
                         <td class="d-flex justify-content-center">
                             <!-- Button trigger for ubah rak -->
@@ -128,7 +129,7 @@
                             </a>
                         </td>
                     </tr>
-
+                    @endforeach
                 </tbody>
             </table>
         </div>
