@@ -71,39 +71,41 @@
                         <td class="d-flex justify-content-center">
                             <!-- Button trigger for ubah rak -->
                             <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                                data-bs-backdrop="false" data-bs-target="#ubah">
+                                data-bs-backdrop="false" data-bs-target="#ubah{{ $item->id }}">
                                 <i class="fas fa-pen"></i>
                             </button>
 
                             <!--Disabled Backdrop Modal -->
-                            <div class="modal fade text-left" id="ubah" tabindex="-1" role="dialog"
+                            <div class="modal fade text-left" id="ubah{{ $item->id }}" tabindex="-1" role="dialog"
                                 aria-labelledby="myModalLabel160" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
                                     role="document">
                                     <div class="modal-content">
                                         <div class="modal-header bg-primary">
                                             <h5 class="modal-title white" id="myModalLabel160">Ubah
-                                                Rak
+                                                Rak - {{ $item->name }}
                                             </h5>
                                             <button type="button" class="close" data-bs-dismiss="modal"
                                                 aria-label="Close">
                                                 <i data-feather="x"></i>
                                             </button>
                                         </div>
-                                        <form action="#">
+                                        <form action="{{ route('admin.rack.update', $item->id) }}" method="POST">
+                                            @csrf
+                                            @method('put')
                                             <div class="modal-body text-left">
                                                 <label class="text-left">Rak</label>
                                                 <div class="form-group">
                                                     <input type="text" placeholder="Contoh: A100-B100"
                                                         class="form-control" name="name"
-                                                        value="C001 - C100">
+                                                        value="{{ $item->name }}">
                                                 </div>
                                                 <label class="text-left">Lokasi</label>
                                                 <div class="form-group">
                                                     <input type="text"
                                                         placeholder="Contoh: Gedung A - Lantai 2"
-                                                        class="form-control" name="lokasi"
-                                                        value="Lantai 1">
+                                                        class="form-control" name="location"
+                                                        value="{{ $item->location }}">
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
@@ -112,9 +114,7 @@
                                                     <i class="bx bx-x d-block d-sm-none"></i>
                                                     <span class="d-none d-sm-block">Close</span>
                                                 </button>
-                                                <button type="button" class="btn btn-primary ml-1"
-                                                    data-bs-dismiss="modal">
-                                                    <i class="bx bx-check d-block d-sm-none"></i>
+                                                <button type="submit" class="btn btn-primary ml-1" >                                                    
                                                     <span class="d-none d-sm-block">Simpan</span>
                                                 </button>
                                             </div>

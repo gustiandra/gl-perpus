@@ -78,7 +78,13 @@ class RackController extends Controller
      */
     public function update(Request $request, Rack $rack)
     {
-        //
+        $data = $this->validate($request, [
+            'name' => 'required',
+            'location' => 'required',
+        ]);
+
+        $rack->update($data);
+        return redirect()->route('admin.rack.index');
     }
 
     /**
