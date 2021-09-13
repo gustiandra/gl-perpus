@@ -1,14 +1,14 @@
-@extends('admin.layout.app', ['title' => 'Rak', 'active' => 'rack'])
+@extends('admin.layout.app', ['title' => 'Kategori', 'active' => 'category'])
 @section('content')
     <div class="card">
         <div class="card-header">
-            Data Rak Buku
+            Data Kategori Buku
         </div>
         <div class="card-body">
-            <!-- Button trigger for tambah rak -->
+            <!-- Button trigger for tambah buku -->
             <button type="button" class="btn btn-primary btn-sm mb-3" data-bs-toggle="modal"
                 data-bs-backdrop="false" data-bs-target="#tambah">
-                <i class="fas fa-plus"></i> Tambah Rak
+                <i class="fas fa-plus"></i> Tambah Kategori
             </button>
 
             <!--Disabled Backdrop Modal -->
@@ -17,26 +17,21 @@
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                     <div class="modal-content">
                         <div class="modal-header bg-primary">
-                            <h5 class="modal-title white" id="myModalLabel160">Tambah Rak
+                            <h5 class="modal-title white" id="myModalLabel160">Tambah Kategori
                             </h5>
                             <button type="button" class="close" data-bs-dismiss="modal"
                                 aria-label="Close">
                                 <i data-feather="x"></i>
                             </button>
                         </div>
-                        <form action="{{ route('admin.rack.store') }}" method="POST">
+                        <form action="{{ route('admin.category.store') }}" method="POST">
                             @csrf
                             <div class="modal-body">
-                                <label>Rak</label>
+                                <label>Kategori</label>
                                 <div class="form-group">
-                                    <input type="text" placeholder="Contoh: A100-B100"
+                                    <input type="text" placeholder="Contoh: Seni Budaya"
                                         class="form-control" name="name">
-                                </div>
-                                <label>Lokasi</label>
-                                <div class="form-group">
-                                    <input type="text" placeholder="Contoh: Gedung A Lantai 2"
-                                        class="form-control" name="location">
-                                </div>
+                                </div>                                
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-light-secondary"
@@ -44,8 +39,7 @@
                                     <i class="bx bx-x d-block d-sm-none"></i>
                                     <span class="d-none d-sm-block">Close</span>
                                 </button>
-                                <button type="submit" class="btn btn-primary ml-1">
-                                    
+                                <button type="submit" class="btn btn-primary ml-1">                                    
                                     <span class="d-none d-sm-block">Simpan</span>
                                 </button>
                             </div>
@@ -56,20 +50,18 @@
             <table class="table table-striped table-responsive" id="table1">
                 <thead>
                     <tr>
-                        <th class="text-center">Rak</th>
-                        <th class="text-center">Lokasi</th>
+                        <th class="text-center">Kategori</th>
                         <th class="text-center">Jumlah Buku</th>
                         <th class="text-center">#</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($racks as $item)                                            
+                    @foreach ($categories as $item)                                            
                     <tr>
                         <td class="text-center"><a href="rak-buku.html">{{ $item->name }}</a></td>
-                        <td class="text-center">{{ $item->location }}</td>
                         <td class="text-center">10</td>
                         <td class="d-flex justify-content-center">
-                            <!-- Button trigger for ubah rak -->
+                            <!-- Button trigger for ubah kategori -->
                             <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
                                 data-bs-backdrop="false" data-bs-target="#ubah{{ $item->slug }}">
                                 <i class="fas fa-pen"></i>
@@ -83,30 +75,23 @@
                                     <div class="modal-content">
                                         <div class="modal-header bg-primary">
                                             <h5 class="modal-title white" id="myModalLabel160">Ubah
-                                                Rak - {{ $item->name }}
+                                                Kategori - {{ $item->name }}
                                             </h5>
                                             <button type="button" class="close" data-bs-dismiss="modal"
                                                 aria-label="Close">
                                                 <i data-feather="x"></i>
                                             </button>
                                         </div>
-                                        <form action="{{ route('admin.rack.update', $item) }}" method="POST">
+                                        <form action="{{ route('admin.category.update', $item) }}" method="POST">
                                             @csrf
                                             @method('put')
                                             <div class="modal-body text-left">
-                                                <label class="text-left">Rak</label>
+                                                <label class="text-left">Kategori</label>
                                                 <div class="form-group">
-                                                    <input type="text" placeholder="Contoh: A100-B100"
+                                                    <input type="text" placeholder="Contoh: Seni Budaya"
                                                         class="form-control" name="name"
                                                         value="{{ $item->name }}">
-                                                </div>
-                                                <label class="text-left">Lokasi</label>
-                                                <div class="form-group">
-                                                    <input type="text"
-                                                        placeholder="Contoh: Gedung A - Lantai 2"
-                                                        class="form-control" name="location"
-                                                        value="{{ $item->location }}">
-                                                </div>
+                                                </div>                                                
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-light-secondary"
@@ -127,7 +112,7 @@
                                 class="btn btn-sm btn-danger" title="Hapus Rak Buku">
                                 <i class=" fas fa-trash-alt"></i>                                
                             </a>
-                            <form action="{{ route('admin.rack.destroy', $item) }}" method="POST" id="deleteForm{{ $item->slug }}">
+                            <form action="{{ route('admin.category.destroy', $item) }}" method="POST" id="deleteForm{{ $item->slug }}">
                                 @csrf
                                 @method('delete')                                
                             </form>
@@ -152,8 +137,8 @@
             Swal.fire({
                 icon: 'question',
                 // text: `Hapus Data Rak Buku ${name}?`,
-                html: `<h5>Hapus Data Rak Buku ${name}?</h5>
-                    <b>Peringatan</b>: Semua data buku yang ada pada rak juga akan terhapus!!!<br>                
+                html: `<h5>Hapus Data Kategori Buku ${name}?</h5>
+                    <b>Peringatan</b>: Semua data buku yang memiliki kategori ${name} juga akan terhapus!!!<br>                
                 `,
                 showCancelButton: true,
                 confirmButtonText: 'Hapus',

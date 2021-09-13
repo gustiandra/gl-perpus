@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Rack;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-class RackController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,8 @@ class RackController extends Controller
      */
     public function index()
     {
-        return view('admin.rack.index', [
-            'racks' => Rack::latest()->get()
+        return view('admin.category.index', [
+            'categories' => Category::latest()->get()
         ]);
     }
 
@@ -41,22 +41,21 @@ class RackController extends Controller
     {
         $data = $this->validate($request, [
             'name' => 'required',
-            'location' => 'required',
         ]);
 
         $data['slug'] = Str::slug($request->name) . '-' . Str::random(10);
 
-        Rack::create($data);
-        return redirect()->route('admin.rack.index');
+        Category::create($data);
+        return redirect()->route('admin.category.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Rack  $rack
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Rack $rack)
+    public function show(Category $category)
     {
         //
     }
@@ -64,10 +63,10 @@ class RackController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Rack  $rack
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Rack $rack)
+    public function edit(Category $category)
     {
         //
     }
@@ -76,31 +75,30 @@ class RackController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Rack  $rack
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Rack $rack)
+    public function update(Request $request, Category $category)
     {
         $data = $this->validate($request, [
             'name' => 'required',
-            'location' => 'required',
         ]);
 
         $data['slug'] = Str::slug($request->name) . '-' . Str::random(10);
 
-        $rack->update($data);
-        return redirect()->route('admin.rack.index');
+        $category->update($data);
+        return redirect()->route('admin.category.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Rack  $rack
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Rack $rack)
+    public function destroy(Category $category)
     {
-        $rack->delete();
-        return redirect()->route('admin.rack.index');
+        $category->delete();
+        return redirect()->route('admin.category.index');
     }
 }

@@ -11,6 +11,11 @@ Breadcrumbs::for('admin.rack.index', function ($trail) {
     $trail->push('Rak', route('admin.rack.index'));
 });
 
+// Category
+Breadcrumbs::for('admin.category.index', function ($trail) {
+    $trail->push('Kategori', route('admin.category.index'));
+});
+
 // Author Edit
 // Breadcrumbs::for('admin.author.edit', function ($trail, $author) {
 //     $trail->push('Beranda', route('admin.dashboard'));

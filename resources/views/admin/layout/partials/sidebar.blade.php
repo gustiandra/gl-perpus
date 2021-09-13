@@ -21,20 +21,20 @@
                         </a>
                     </li>
 
-                    <li class="sidebar-item has-sub @if ($active == 'rack') {{ 'active' }} @endif">
+                    <li class="sidebar-item has-sub @if ($active == 'rack' || $active == 'category' || $active == 'book') {{ 'active' }} @endif">
                         <a href="#" class='sidebar-link'>
                             <i class="bi bi-book-half"></i>
                             <span>Manajemen Buku</span>
                         </a>
-                        <ul class="submenu @if ($active == 'rack') {{ 'active' }} @endif">
-                            <li class="submenu-item">
-                                <a href="kategori.html">Kategori</a>
+                        <ul class="submenu @if ($active == 'rack' || $active == 'category' || $active == 'book') {{ 'active' }} @endif">
+                            <li class="submenu-item @if ($active == 'category') {{ 'active' }} @endif">
+                                <a href="{{ route('admin.category.index') }}">Kategori</a>
                             </li>
                             <li class="submenu-item @if ($active == 'rack') {{ 'active' }} @endif">
                                 <a href="{{ route('admin.rack.index') }}">Rak</a>
                             </li>
-                            <li class="submenu-item">
-                                <a href="buku.html">Buku</a>
+                            <li class="submenu-item @if ($active == 'book') {{ 'active' }} @endif">
+                                <a href="{{ route('admin.book.index') }}">Buku</a>
                             </li>
                         </ul>
                     </li>
