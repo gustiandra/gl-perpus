@@ -1,6 +1,9 @@
 <?php
 
 // Dashboard
+
+use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
+
 Breadcrumbs::for('admin.dashboard', function ($trail) {
     $trail->push('Dashboard', route('admin.dashboard'));
 });
@@ -14,6 +17,23 @@ Breadcrumbs::for('admin.rack.index', function ($trail) {
 // Category
 Breadcrumbs::for('admin.category.index', function ($trail) {
     $trail->push('Kategori', route('admin.category.index'));
+});
+
+// Book
+Breadcrumbs::for('admin.book.index', function ($trail) {
+    $trail->push('Buku', route('admin.book.index'));
+});
+Breadcrumbs::for('admin.book.create', function ($trail) {
+    $trail->push('Buku', route('admin.book.index'));
+    $trail->push('Tambah Buku', route('admin.book.create'));
+});
+Breadcrumbs::for('admin.book.edit', function ($trail, $book) {
+    $trail->push('Buku', route('admin.book.index'));
+    $trail->push('Ubah Buku', route('admin.book.edit', $book));
+});
+Breadcrumbs::for('admin.book.show', function ($trail, $book) {
+    $trail->push('Buku', route('admin.book.index'));
+    $trail->push('Ubah Buku', route('admin.book.show', $book));
 });
 
 // Author Edit

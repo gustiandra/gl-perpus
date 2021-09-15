@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\Admin\BookController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\RackController;
+use Illuminate\Support\Facades\Route;
 
 // Dashboard
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -21,4 +23,4 @@ Route::put('/kategori{category}', [CategoryController::class, 'update'])->name('
 Route::delete('/kategori{category}', [CategoryController::class, 'destroy'])->name('category.destroy');
 
 // Book
-Route::get('/buku', [RackController::class, 'index'])->name('book.index');
+Route::resource('/book', BookController::class);
