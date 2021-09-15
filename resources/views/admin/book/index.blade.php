@@ -1,93 +1,93 @@
 @extends('admin.layout.app', ['title' => 'Buku', 'active' => 'book'])
 @section('content')
     <div class="card">
-                        <div class="card-header">
-                            Data Buku
-                        </div>
-                        <div class="card-body">
-                            <!-- Button trigger for tambah buku -->
-                            <a href="tambah-buku.html" class="btn btn-primary btn-sm mb-3">
-                                <i class="fas fa-plus"></i> Tambah Buku
+        <div class="card-header">
+            Data Buku
+        </div>
+        <div class="card-body">
+            <!-- Button trigger for tambah buku -->
+            <a href="{{ route('admin.book.create') }}" class="btn btn-primary btn-sm mb-3">
+                <i class="fas fa-plus"></i> Tambah Buku
+            </a>
+            <table class="table table-striped table-responsive" id="table1">
+                <thead>
+                    <tr>
+                        <th class="text-center">Judul</th>
+                        <th class="text-center">Cover</th>
+                        <th class="text-center">Kategori</th>
+                        <th class="text-center">Rak</th>
+                        <th class="text-center">Jumlah</th>
+                        <th class="text-center">#</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-center">Dasar Pemrograman</td>
+                        <td class="text-center"><img src="dist/assets/images/cover.png" height="70"
+                                alt=""></td>
+                        <td class="text-center">Pemrograman</td>
+                        <td class="text-center">A-12</td>
+                        <td class="text-center">14</td>
+                        <td class="text-center">
+                            <a href="detail-buku.html" class="btn btn-warning btn-sm">
+                                <i class="fas fa-eye" title="Detail Buku"></i>
                             </a>
-                            <table class="table table-striped table-responsive" id="table1">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center">Judul</th>
-                                        <th class="text-center">Cover</th>
-                                        <th class="text-center">Kategori</th>
-                                        <th class="text-center">Rak</th>
-                                        <th class="text-center">Jumlah</th>
-                                        <th class="text-center">#</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="text-center">Dasar Pemrograman</td>
-                                        <td class="text-center"><img src="dist/assets/images/cover.png" height="70"
-                                                alt=""></td>
-                                        <td class="text-center">Pemrograman</td>
-                                        <td class="text-center">A-12</td>
-                                        <td class="text-center">14</td>
-                                        <td class="text-center">
-                                            <a href="detail-buku.html" class="btn btn-warning btn-sm">
-                                                <i class="fas fa-eye" title="Detail Buku"></i>
-                                            </a>
-                                            <a href="ubah-buku.html" class="btn btn-primary btn-sm">
-                                                <i class="fas fa-pen"></i>
-                                            </a>
-                                            <a href="#" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                onclick="deleteConfirm('form', 'Dasar Pemrograman')"
-                                                class="btn btn-sm btn-danger" title="Hapus Buku">
-                                                <i class=" fas fa-trash-alt"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">Dasar Pemrograman</td>
-                                        <td class="text-center"><img src="dist/assets/images/cover.png" height="70"
-                                                alt=""></td>
-                                        <td class="text-center">Pemrograman</td>
-                                        <td class="text-center">A-12</td>
-                                        <td class="text-center">14</td>
-                                        <td class="text-center">
-                                            <a href="detail-buku.html" class="btn btn-warning btn-sm">
-                                                <i class="fas fa-eye" title="Detail Buku"></i>
-                                            </a>
-                                            <a href="ubah-buku.html" class="btn btn-primary btn-sm">
-                                                <i class="fas fa-pen"></i>
-                                            </a>
-                                            <a href="#" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                onclick="deleteConfirm('form', 'Dasar Pemrograman')"
-                                                class="btn btn-sm btn-danger" title="Hapus Buku">
-                                                <i class=" fas fa-trash-alt"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">Dasar Pemrograman</td>
-                                        <td class="text-center"><img src="dist/assets/images/cover.png" height="70"
-                                                alt=""></td>
-                                        <td class="text-center">Pemrograman</td>
-                                        <td class="text-center">A-12</td>
-                                        <td class="text-center">14</td>
-                                        <td class="text-center">
-                                            <a href="detail-buku.html" class="btn btn-warning btn-sm">
-                                                <i class="fas fa-eye" title="Detail Buku"></i>
-                                            </a>
-                                            <a href="ubah-buku.html" class="btn btn-primary btn-sm">
-                                                <i class="fas fa-pen"></i>
-                                            </a>
-                                            <a href="#" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                onclick="deleteConfirm('form', 'Dasar Pemrograman')"
-                                                class="btn btn-sm btn-danger" title="Hapus Buku">
-                                                <i class=" fas fa-trash-alt"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                            <a href="ubah-buku.html" class="btn btn-primary btn-sm">
+                                <i class="fas fa-pen"></i>
+                            </a>
+                            <a href="#" data-bs-toggle="tooltip" data-bs-placement="top"
+                                onclick="deleteConfirm('form', 'Dasar Pemrograman')"
+                                class="btn btn-sm btn-danger" title="Hapus Buku">
+                                <i class=" fas fa-trash-alt"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">Dasar Pemrograman</td>
+                        <td class="text-center"><img src="dist/assets/images/cover.png" height="70"
+                                alt=""></td>
+                        <td class="text-center">Pemrograman</td>
+                        <td class="text-center">A-12</td>
+                        <td class="text-center">14</td>
+                        <td class="text-center">
+                            <a href="detail-buku.html" class="btn btn-warning btn-sm">
+                                <i class="fas fa-eye" title="Detail Buku"></i>
+                            </a>
+                            <a href="ubah-buku.html" class="btn btn-primary btn-sm">
+                                <i class="fas fa-pen"></i>
+                            </a>
+                            <a href="#" data-bs-toggle="tooltip" data-bs-placement="top"
+                                onclick="deleteConfirm('form', 'Dasar Pemrograman')"
+                                class="btn btn-sm btn-danger" title="Hapus Buku">
+                                <i class=" fas fa-trash-alt"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">Dasar Pemrograman</td>
+                        <td class="text-center"><img src="dist/assets/images/cover.png" height="70"
+                                alt=""></td>
+                        <td class="text-center">Pemrograman</td>
+                        <td class="text-center">A-12</td>
+                        <td class="text-center">14</td>
+                        <td class="text-center">
+                            <a href="detail-buku.html" class="btn btn-warning btn-sm">
+                                <i class="fas fa-eye" title="Detail Buku"></i>
+                            </a>
+                            <a href="ubah-buku.html" class="btn btn-primary btn-sm">
+                                <i class="fas fa-pen"></i>
+                            </a>
+                            <a href="#" data-bs-toggle="tooltip" data-bs-placement="top"
+                                onclick="deleteConfirm('form', 'Dasar Pemrograman')"
+                                class="btn btn-sm btn-danger" title="Hapus Buku">
+                                <i class=" fas fa-trash-alt"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 @endsection
 
 @push('addon-style')
