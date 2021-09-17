@@ -21,69 +21,29 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td class="text-center">Dasar Pemrograman</td>
-                        <td class="text-center"><img src="dist/assets/images/cover.png" height="70"
-                                alt=""></td>
-                        <td class="text-center">Pemrograman</td>
-                        <td class="text-center">A-12</td>
-                        <td class="text-center">14</td>
-                        <td class="text-center">
-                            <a href="detail-buku.html" class="btn btn-warning btn-sm">
-                                <i class="fas fa-eye" title="Detail Buku"></i>
-                            </a>
-                            <a href="ubah-buku.html" class="btn btn-primary btn-sm">
-                                <i class="fas fa-pen"></i>
-                            </a>
-                            <a href="#" data-bs-toggle="tooltip" data-bs-placement="top"
-                                onclick="deleteConfirm('form', 'Dasar Pemrograman')"
-                                class="btn btn-sm btn-danger" title="Hapus Buku">
-                                <i class=" fas fa-trash-alt"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center">Dasar Pemrograman</td>
-                        <td class="text-center"><img src="dist/assets/images/cover.png" height="70"
-                                alt=""></td>
-                        <td class="text-center">Pemrograman</td>
-                        <td class="text-center">A-12</td>
-                        <td class="text-center">14</td>
-                        <td class="text-center">
-                            <a href="detail-buku.html" class="btn btn-warning btn-sm">
-                                <i class="fas fa-eye" title="Detail Buku"></i>
-                            </a>
-                            <a href="ubah-buku.html" class="btn btn-primary btn-sm">
-                                <i class="fas fa-pen"></i>
-                            </a>
-                            <a href="#" data-bs-toggle="tooltip" data-bs-placement="top"
-                                onclick="deleteConfirm('form', 'Dasar Pemrograman')"
-                                class="btn btn-sm btn-danger" title="Hapus Buku">
-                                <i class=" fas fa-trash-alt"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center">Dasar Pemrograman</td>
-                        <td class="text-center"><img src="dist/assets/images/cover.png" height="70"
-                                alt=""></td>
-                        <td class="text-center">Pemrograman</td>
-                        <td class="text-center">A-12</td>
-                        <td class="text-center">14</td>
-                        <td class="text-center">
-                            <a href="detail-buku.html" class="btn btn-warning btn-sm">
-                                <i class="fas fa-eye" title="Detail Buku"></i>
-                            </a>
-                            <a href="ubah-buku.html" class="btn btn-primary btn-sm">
-                                <i class="fas fa-pen"></i>
-                            </a>
-                            <a href="#" data-bs-toggle="tooltip" data-bs-placement="top"
-                                onclick="deleteConfirm('form', 'Dasar Pemrograman')"
-                                class="btn btn-sm btn-danger" title="Hapus Buku">
-                                <i class=" fas fa-trash-alt"></i>
-                            </a>
-                        </td>
-                    </tr>
+                    @foreach ($books as $item)
+                        <tr>
+                            <td class="text-center">{{ $item->title }}</td>
+                            <td class="text-center"><img src="dist/assets/images/cover.png" height="70"
+                                    alt=""></td>
+                            <td class="text-center">Pemrograman</td>
+                            <td class="text-center">A-12</td>
+                            <td class="text-center">14</td>
+                            <td class="text-center">
+                                <a href="detail-buku.html" class="btn btn-warning btn-sm">
+                                    <i class="fas fa-eye" title="Detail Buku"></i>
+                                </a>
+                                <a href="ubah-buku.html" class="btn btn-primary btn-sm">
+                                    <i class="fas fa-pen"></i>
+                                </a>
+                                <a href="#" data-bs-toggle="tooltip" data-bs-placement="top"
+                                    onclick="deleteConfirm('form', 'Dasar Pemrograman')"
+                                    class="btn btn-sm btn-danger" title="Hapus Buku">
+                                    <i class=" fas fa-trash-alt"></i>
+                                </a>
+                            </td>
+                        </tr>                   
+                    @endforeach
                 </tbody>
             </table>
         </div>

@@ -6,69 +6,78 @@
                 <div class="card-header">
                     Form Tambah Buku
                 </div>
-
                 <div class="card-body">
-                    <form action="#">
+                    <form action="{{ route('admin.book.store') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
                         <div class="row">
                             <div class="col-sm-6 mb-3">
-                                <label for="title">Judul</label>
-                                <input type="text" class="form-control" id="title"
-                                    placeholder="Contoh: Dasar Pemrograman" required name="title">
-                                <div class="invalid-feedback">
-                                    <i class="bx bx-radio-circle"></i>
-                                    This is valid state.
-                                </div>
+                                <label for="title">Judul<sup class="text-danger">*</sup></label>
+                                <input type="text" class="form-control @error('title') is-invalid @enderror" id="title"  name="title" value="{{ old('title') ?? '' }}"> 
+                                @error('title')
+                                    <div class="invalid-feedback">
+                                        <i class="bx bx-radio-circle"></i>
+                                        {{$message}}
+                                    </div>
+                                @enderror
                             </div>
                             <div class="col-sm-6 mb-3">
-                                <label for="category_id">Kategori<sub><i class="text-muted">*bisa
-                                            memilih
-                                            lebih dari
-                                            satu</i></sub></label>
+                                <label for="category_id">Kategori<sup class="text-danger">*</sup><sub><i class="text-muted">(bisa memilih lebih dari satu)</i></sub></label>
                                 <div class="form-group">
                                     <select class="choices form-select multiple-remove"
-                                        multiple="multiple" name="category_id[]" id="category_id"
-                                        required>
-                                        <option value="romboid">Sejarah</option>
-                                        <option value="trapeze" selected>Matematika</option>
-                                        <option value="triangle">Pemrograman</option>
-                                        <option value="polygon">Karya Tulis Ilmiah</option>
+                                        multiple="multiple" name="category_id[]" id="category_id">
+                                        @foreach ($categories as $item)
+                                            <option value="{{ $item->id }}">{{ $item->name }}</option>                                            
+                                        @endforeach                                         
                                     </select>
-
                                 </div>
                             </div>
                             <div class="col-sm-4 mb-3">
-                                <label for="publisher">Penerbit</label>
-                                <input type="text" class="form-control" id="publisher"
-                                    placeholder="Contoh: PT. WIB" required name="publisher">
-                                <div class="invalid-feedback">
-                                    <i class="bx bx-radio-circle"></i>
-                                    This is valid state.
-                                </div>
+                                <label for="publisher">Penerbit<sup class="text-danger">*</sup></label>
+                                <input type="text" class="form-control @error('publisher') is-invalid @enderror" id="publisher"  name="publisher" {{ old('publisher') ?? '' }}>
+                                @error('publisher')
+                                    <div class="invalid-feedback">
+                                        <i class="bx bx-radio-circle"></i>
+                                        {{$message}}
+                                    </div>
+                                @enderror
                             </div>
                             <div class="col-sm-4 mb-3">
-                                <label for="author">Penulis</label>
-                                <input type="text" class="form-control is-invalid" id="author"
-                                    placeholder="Contoh: Gustiandra" required name="author">
-                                <div class="invalid-feedback">
-                                    <i class="bx bx-radio-circle"></i>
-                                    This is valid state.
-                                </div>
+                                <label for="author">Penulis<sup class="text-danger">*</sup></label>
+                                <input type="text" class="form-control @error('author') is-invalid @enderror" id="author"  name="author" {{ old('author') ?? '' }}>
+                                @error('author')
+                                    <div class="invalid-feedback">
+                                        <i class="bx bx-radio-circle"></i>
+                                        {{$message}}
+                                    </div>
+                                @enderror
                             </div>
                             <div class="col-sm-4 mb-3">
-                                <label for="rack">Rak</label>
+                                <label for="rack">Rak<sup class="text-danger">*</sup></label>
                                 <div class="form-group">
-                                    <select class="form-select">
-                                        <option value="romboid">Sejarah</option>
-                                        <option value="trapeze" selected>Matematika</option>
-                                        <option value="triangle">Pemrograman</option>
-                                        <option value="polygon">Karya Tulis Ilmiah</option>
+                                    <select class="form-select @error('rack_id') is-invalid @enderror" name="rack_id" id="rack">
+                                        <option value="">-- Pilih Rak --</option>                                            
+                                        @foreach ($racks as $item)
+                                        <option value="{{ $item->id }}" @if ($item->slug == old('rack_id')) {{ 'selected' }} @endif >{{ $item->name }}</option>                                            
+                                        @endforeach                                        
                                     </select>
-                                </div>
+                                    @error('rack_id')
+                                    <div class="invalid-feedback">
+                                        <i class="bx bx-radio-circle"></i>
+                                        {{$message}}
+                                    </div>
+                                @enderror
+                                </div>                                
                             </div>
                             <div class="col-12">
-                                <label for="description">Deskripsi</label>
+                                <label for="description">Deskripsi<sup class="text-danger">*</sup></label>
                                 <textarea name="description" id="description" rows="3"
-                                    class="form-control"></textarea>
+                                    class="form-control @error('description') is-invalid @enderror">{{ old('title') ?? '' }}</textarea>
+                                @error('description')
+                                    <div class="invalid-feedback">
+                                        <i class="bx bx-radio-circle"></i>
+                                        {{$message}}
+                                    </div>
+                                @enderror
                             </div>
                         </div>
                         <div class="row" id="photo">
@@ -79,26 +88,38 @@
                                     <div class="input-group mb-3">
                                         <label class="input-group-text" for="formFile"><i
                                                 class="bi bi-upload"></i></label>
-                                        <input type="file" class="form-control" id="formFile"
-                                            @change="upload">
+                                        <input type="file" class="form-control @error('cover') is-invalid @enderror" id="formFile"
+                                            @change="upload" name="cover" value="{{ old('cover') ?? '' }}">
                                     </div>
+                                    @error('cover')
+                                        <div class="invalid-feedback">
+                                            <i class="bx bx-radio-circle"></i>
+                                            {{$message}}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-sm-6 ">
                                 <div class="increment d-inline"><br>
-                                    <label for="">Kode Buku</label>
+                                    <label for="code">Kode Buku</label>
                                     <div class="input-group">
-                                        <input type="text" name="book_code_id" class="form-control">
+                                        <input type="text" name="code[]" class="form-control @error('code') is-invalid @enderror" id="code">
                                         <div class="input-group-append">
                                             <button type="button"
                                                 class="border-none btn btn-outline-primary btn-add"><i
                                                     class="fas fa-plus-square"></i></button>
                                         </div>
                                     </div>
+                                    @error('code')
+                                        <div class="invalid-feedback">
+                                            <i class="bx bx-radio-circle"></i>
+                                            {{$message}}
+                                        </div>
+                                    @enderror
                                 </div>
                                 <div class="clone invisible">
                                     <div class="input-group mt-2">
-                                        <input type="text" name="book_code_id" class="form-control">
+                                        <input type="text" name="code[]" class="form-control">
                                         <div class="input-group-append">
                                             <button type="button"
                                                 class="border-none btn btn-outline-danger btn-remove"><i
@@ -109,10 +130,8 @@
                             </div>
                         </div>
                         <div class="col-12 text-end">
-                            <!-- <button type="submit" class="btn btn-primary">Simpan</button> -->
-                            <a href="buku.html" class="btn btn-primary">Simpan</a>
+                            <button type="submit" class="btn btn-primary">Simpan</button>                            
                         </div>
-
                     </form>
                 </div>
             </div>

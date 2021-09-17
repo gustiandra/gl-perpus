@@ -15,21 +15,18 @@ class CreateBooksTable extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->id();
+            $table->string('slug');
             $table->string('title');
+            $table->string('author');
             $table->string('publisher');
             $table->dateTime('publish_at');
             $table->string('description');
             $table->string('cover')->nullable();
-            $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('rack_id');
             $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('rack_id')->references('id')->on('racks')
-                ->onUpdate('CASCADE')
-                ->onDelete('CASCADE');
-
-            $table->foreign('category_id')->references('id')->on('categories')
                 ->onUpdate('CASCADE')
                 ->onDelete('CASCADE');
         });

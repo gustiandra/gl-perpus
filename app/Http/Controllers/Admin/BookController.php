@@ -4,7 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Book;
+use App\Models\BookCategory;
+use App\Models\BookCode;
+use App\Models\Category;
+use App\Models\Rack;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class BookController extends Controller
 {
@@ -15,7 +20,9 @@ class BookController extends Controller
      */
     public function index()
     {
-        return view('admin.book.index');
+        return view('admin.book.index', [
+            'books' => Book::latest()->get()
+        ]);
     }
 
     /**
@@ -25,7 +32,10 @@ class BookController extends Controller
      */
     public function create()
     {
-        return view('admin.book.create');
+        return view('admin.book.create', [
+            'categories' => Category::orderBy('name', 'asc')->get(),
+            'racks' => Rack::orderBy('name', 'asc')->get(),
+        ]);
     }
 
     /**
@@ -36,7 +46,44 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $this->validate($request, [
+            'title' => 'required',
+            'category_id' => 'required',
+            'publisher' => 'required',
+            'author' => 'required',
+            'rack_id' => 'required',
+            'description' => 'required',
+            'cover' => 'image',
+        ]);
+
+        $data['cover'] = $request->file('cover')->store('assets/book-cover', 'public');
+        $data['slug'] = Str::slug($request->title) . '-' . Str::random(10);
+        $book = Book::create([
+            'title' => $data['title'],
+            'publisher' => $data['publisher'],
+            'author' => $data['author'],
+            'rack_id' => $data['rack_id'],
+            'description' => $data['description'],
+            'cover' => $data['cover'],
+            'slug' => $data['slug'],
+            'publish_at' => now(),
+        ]);
+
+        for ($i = 0; $i < count($request->category_id); $i++) {
+            BookCategory::create([
+                'book_id' => $book->id,
+                'category_id' => $request->category_id[$i]
+            ]);
+        }
+
+        for ($i = 0; $i < count($request->code) - 1; $i++) {
+            BookCode::create([
+                'book_id' => $book->id,
+                'code' => $request->code[$i],
+            ]);
+        }
+
+        return redirect()->route('admin.book.index');
     }
 
     /**
