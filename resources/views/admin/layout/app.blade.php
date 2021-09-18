@@ -25,6 +25,7 @@
     </div>
     @stack('addon-script')
     @include('admin.layout.partials.script')
+    @include('sweetalert::alert')
 </body>
 
 </html>

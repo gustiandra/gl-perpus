@@ -46,7 +46,7 @@ class CategoryController extends Controller
         $data['slug'] = Str::slug($request->name) . '-' . Str::random(10);
 
         Category::create($data);
-        return redirect()->route('admin.category.index');
+        return redirect()->route('admin.category.index')->withToastSuccess("Berhasil menambahkan kategori $request->name!");
     }
 
     /**
@@ -87,7 +87,7 @@ class CategoryController extends Controller
         $data['slug'] = Str::slug($request->name) . '-' . Str::random(10);
 
         $category->update($data);
-        return redirect()->route('admin.category.index');
+        return redirect()->route('admin.category.index')->withToastSuccess("Berhasil mengubah kategori $request->name!");
     }
 
     /**
@@ -98,7 +98,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        $name = $category->name;
         $category->delete();
-        return redirect()->route('admin.category.index');
+        return redirect()->route('admin.category.index')->withToastSuccess("Berhasil menghapus kategori $name!");
     }
 }

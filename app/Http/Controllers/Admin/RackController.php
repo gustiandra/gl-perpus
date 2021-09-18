@@ -47,7 +47,7 @@ class RackController extends Controller
         $data['slug'] = Str::slug($request->name) . '-' . Str::random(10);
 
         Rack::create($data);
-        return redirect()->route('admin.rack.index');
+        return redirect()->route('admin.rack.index')->withToastSuccess("Berhasil menambahkan rak $request->name!");
     }
 
     /**
@@ -89,7 +89,7 @@ class RackController extends Controller
         $data['slug'] = Str::slug($request->name) . '-' . Str::random(10);
 
         $rack->update($data);
-        return redirect()->route('admin.rack.index');
+        return redirect()->route('admin.rack.index')->withToastSuccess("Berhasil mengubah rak $request->name!");
     }
 
     /**
@@ -100,7 +100,8 @@ class RackController extends Controller
      */
     public function destroy(Rack $rack)
     {
+        $name = $rack->name;
         $rack->delete();
-        return redirect()->route('admin.rack.index');
+        return redirect()->route('admin.rack.index')->withToastSuccess("Berhasil menghapus rak $name!");
     }
 }

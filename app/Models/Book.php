@@ -15,4 +15,19 @@ class Book extends Model
     {
         return 'slug';
     }
+
+    public function bookCategory()
+    {
+        return $this->hasMany(BookCategory::class)->with('category');
+    }
+
+    public function rack()
+    {
+        return $this->hasOne(Rack::class, 'id', 'rack_id');
+    }
+
+    public function bookCode()
+    {
+        return $this->hasMany(BookCode::class);
+    }
 }

@@ -20,8 +20,12 @@ class BookController extends Controller
      */
     public function index()
     {
+        $books = Book::with('bookCategory', 'bookCategory.category', 'rack', 'bookcode')->latest()->get();
+
+        // dd($books[0]->bookCategory[0]->category);
+
         return view('admin.book.index', [
-            'books' => Book::latest()->get()
+            'books' => $books
         ]);
     }
 
@@ -84,7 +88,7 @@ class BookController extends Controller
             ]);
         }
 
-        return redirect()->route('admin.book.index');
+        return redirect()->route('admin.book.index')->withToastSuccess("Berhasil menambahkan buku $request->title!");
     }
 
     /**

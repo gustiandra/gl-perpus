@@ -24,23 +24,30 @@
                     @foreach ($books as $item)
                         <tr>
                             <td class="text-center">{{ $item->title }}</td>
-                            <td class="text-center"><img src="dist/assets/images/cover.png" height="70"
+                            <td class="text-center"><img src="{{ Storage::url($item->cover) }}" height="80"
                                     alt=""></td>
-                            <td class="text-center">Pemrograman</td>
-                            <td class="text-center">A-12</td>
-                            <td class="text-center">14</td>
                             <td class="text-center">
-                                <a href="detail-buku.html" class="btn btn-warning btn-sm">
+                                @foreach ( $item->bookCategory  as $row)
+                                    <span class="">{{ $row->category->name }}</span><br>
+                                @endforeach
+                            </td>
+                            <td class="text-center">{{ $item->rack->name }}</td>
+                            <td class="text-center">{{ count($item->bookcode) }}</td>
+                            <td class="text-center">
+                                <a href="{{ route('admin.book.show', $item->slug) }}" class="btn btn-warning btn-sm">
                                     <i class="fas fa-eye" title="Detail Buku"></i>
                                 </a>
-                                <a href="ubah-buku.html" class="btn btn-primary btn-sm">
+                                <a href="{{ route('admin.book.edit', $item->slug) }}" class="btn btn-primary btn-sm">
                                     <i class="fas fa-pen"></i>
                                 </a>
                                 <a href="#" data-bs-toggle="tooltip" data-bs-placement="top"
-                                    onclick="deleteConfirm('form', 'Dasar Pemrograman')"
+                                    onclick="deleteConfirm('deleteConfirm{{ $item->slug }}', '{{ $item->title }}')"
                                     class="btn btn-sm btn-danger" title="Hapus Buku">
                                     <i class=" fas fa-trash-alt"></i>
                                 </a>
+                                <form action="{{ route('admin.book.destroy', $item->slug) }}" method="POST" id="deleteConfirm{{ $item->slug }}">
+                                    @csrf
+                                </form>
                             </td>
                         </tr>                   
                     @endforeach
