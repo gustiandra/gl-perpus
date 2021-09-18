@@ -53,6 +53,7 @@ class BookController extends Controller
             'author' => 'required',
             'rack_id' => 'required',
             'description' => 'required',
+            'publish_at' => 'required',
             'cover' => 'image',
         ]);
 
@@ -66,7 +67,7 @@ class BookController extends Controller
             'description' => $data['description'],
             'cover' => $data['cover'],
             'slug' => $data['slug'],
-            'publish_at' => now(),
+            'publish_at' => $data['publish_at'],
         ]);
 
         for ($i = 0; $i < count($request->category_id); $i++) {

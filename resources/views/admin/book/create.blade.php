@@ -12,7 +12,7 @@
                         <div class="row">
                             <div class="col-sm-6 mb-3">
                                 <label for="title">Judul<sup class="text-danger">*</sup></label>
-                                <input type="text" class="form-control @error('title') is-invalid @enderror" id="title"  name="title" value="{{ old('title') ?? '' }}"> 
+                                <input type="text" class="form-control @error('title') is-invalid @enderror" id="title"  name="title" value="{{ old('title') ?? '' }}" required autofocus> 
                                 @error('title')
                                     <div class="invalid-feedback">
                                         <i class="bx bx-radio-circle"></i>
@@ -24,16 +24,16 @@
                                 <label for="category_id">Kategori<sup class="text-danger">*</sup><sub><i class="text-muted">(bisa memilih lebih dari satu)</i></sub></label>
                                 <div class="form-group">
                                     <select class="choices form-select multiple-remove"
-                                        multiple="multiple" name="category_id[]" id="category_id">
+                                        multiple="multiple" name="category_id[]" id="category_id" required>
                                         @foreach ($categories as $item)
                                             <option value="{{ $item->id }}">{{ $item->name }}</option>                                            
                                         @endforeach                                         
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-sm-4 mb-3">
+                            <div class="col-sm-3 mb-3">
                                 <label for="publisher">Penerbit<sup class="text-danger">*</sup></label>
-                                <input type="text" class="form-control @error('publisher') is-invalid @enderror" id="publisher"  name="publisher" {{ old('publisher') ?? '' }}>
+                                <input type="text" class="form-control @error('publisher') is-invalid @enderror" id="publisher"  name="publisher" {{ old('publisher') ?? '' }} required>
                                 @error('publisher')
                                     <div class="invalid-feedback">
                                         <i class="bx bx-radio-circle"></i>
@@ -41,9 +41,9 @@
                                     </div>
                                 @enderror
                             </div>
-                            <div class="col-sm-4 mb-3">
+                            <div class="col-sm-3 mb-3">
                                 <label for="author">Penulis<sup class="text-danger">*</sup></label>
-                                <input type="text" class="form-control @error('author') is-invalid @enderror" id="author"  name="author" {{ old('author') ?? '' }}>
+                                <input type="text" class="form-control @error('author') is-invalid @enderror" id="author"  name="author" {{ old('author') ?? '' }} required>
                                 @error('author')
                                     <div class="invalid-feedback">
                                         <i class="bx bx-radio-circle"></i>
@@ -51,10 +51,10 @@
                                     </div>
                                 @enderror
                             </div>
-                            <div class="col-sm-4 mb-3">
+                            <div class="col-sm-3 mb-3">
                                 <label for="rack">Rak<sup class="text-danger">*</sup></label>
                                 <div class="form-group">
-                                    <select class="form-select @error('rack_id') is-invalid @enderror" name="rack_id" id="rack">
+                                    <select class="form-select @error('rack_id') is-invalid @enderror" name="rack_id" id="rack" required>
                                         <option value="">-- Pilih Rak --</option>                                            
                                         @foreach ($racks as $item)
                                         <option value="{{ $item->id }}" @if ($item->slug == old('rack_id')) {{ 'selected' }} @endif >{{ $item->name }}</option>                                            
@@ -68,10 +68,20 @@
                                 @enderror
                                 </div>                                
                             </div>
+                            <div class="col-sm-3 mb-3">
+                                <label for="publish_at">Waktu Rilis<sup class="text-danger">*</sup></label>
+                                <input type="date" class="form-control @error('publish_at') is-invalid @enderror" id="publish_at"  name="publish_at" {{ old('publish_at') ?? '' }} required>
+                                @error('publish_at')
+                                    <div class="invalid-feedback">
+                                        <i class="bx bx-radio-circle"></i>
+                                        {{$message}}
+                                    </div>
+                                @enderror
+                            </div>
                             <div class="col-12">
                                 <label for="description">Deskripsi<sup class="text-danger">*</sup></label>
                                 <textarea name="description" id="description" rows="3"
-                                    class="form-control @error('description') is-invalid @enderror">{{ old('title') ?? '' }}</textarea>
+                                    class="form-control @error('description') is-invalid @enderror" required>{{ old('title') ?? '' }}</textarea>
                                 @error('description')
                                     <div class="invalid-feedback">
                                         <i class="bx bx-radio-circle"></i>
@@ -103,7 +113,7 @@
                                 <div class="increment d-inline"><br>
                                     <label for="code">Kode Buku</label>
                                     <div class="input-group">
-                                        <input type="text" name="code[]" class="form-control @error('code') is-invalid @enderror" id="code">
+                                        <input type="text" name="code[]" class="form-control @error('code') is-invalid @enderror" id="code" required>
                                         <div class="input-group-append">
                                             <button type="button"
                                                 class="border-none btn btn-outline-primary btn-add"><i
