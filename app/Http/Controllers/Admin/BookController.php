@@ -61,7 +61,12 @@ class BookController extends Controller
             'cover' => 'image',
         ]);
 
-        $data['cover'] = $request->file('cover')->store('assets/book-cover', 'public');
+        if (!$request->file('cover')) {
+            $data['cover'] = 'assets/book-cover/default-cover.png';
+        } else {
+            $data['cover'] = $request->file('cover')->store('assets/book-cover', 'public');
+        }
+
         $data['slug'] = Str::slug($request->title) . '-' . Str::random(10);
         $book = Book::create([
             'title' => $data['title'],
