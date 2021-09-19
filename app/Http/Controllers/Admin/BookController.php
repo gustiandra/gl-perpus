@@ -196,6 +196,10 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+        $name = $book->title;
+        BookCategory::where('book_id', $book->id)->delete();
+        BookCode::where('book_id', $book->id)->delete();
+        $book->delete();
+        return redirect()->route('admin.book.index')->withToastSuccess("Berhasil menghapus buku $name!");
     }
 }

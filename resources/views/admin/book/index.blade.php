@@ -47,6 +47,7 @@
                                 </a>
                                 <form action="{{ route('admin.book.destroy', $item->slug) }}" method="POST" id="deleteConfirm{{ $item->slug }}">
                                     @csrf
+                                    @method('delete')
                                 </form>
                             </td>
                         </tr>                   
@@ -68,7 +69,7 @@
        window.deleteConfirm = function (formId, name) {
             Swal.fire({
                 icon: 'question',
-                text: `Hapus Data Buku ${name}?`,
+                html: `Hapus Data Buku <b>${name}</b>?`,
                 showCancelButton: true,
                 confirmButtonText: 'Hapus',
                 confirmButtonColor: '#e3342f',
