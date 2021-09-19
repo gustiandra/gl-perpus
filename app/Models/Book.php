@@ -30,4 +30,8 @@ class Book extends Model
     {
         return $this->hasMany(BookCode::class);
     }
+
+    protected $casts = [
+        'publish_at' => 'datetime',
+    ];
 }

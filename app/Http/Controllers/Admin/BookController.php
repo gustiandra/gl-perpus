@@ -10,6 +10,7 @@ use App\Models\Category;
 use App\Models\Rack;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class BookController extends Controller
 {
@@ -61,10 +62,17 @@ class BookController extends Controller
             'cover' => 'image',
         ]);
 
+        // Save the cover
         if (!$request->file('cover')) {
             $data['cover'] = 'assets/book-cover/default-cover.png';
         } else {
-            $data['cover'] = $request->file('cover')->store('assets/book-cover', 'public');
+            $image          = $request->file('cover');
+            $fileName       = $data['title'] . '.' . $image->getClientOriginalExtension();
+            $request->file('cover')->storeAs(
+                'assets/book-cover',
+                $fileName,
+                'public'
+            );
         }
 
         $data['slug'] = Str::slug($request->title) . '-' . Str::random(10);
@@ -74,7 +82,7 @@ class BookController extends Controller
             'author' => $data['author'],
             'rack_id' => $data['rack_id'],
             'description' => $data['description'],
-            'cover' => $data['cover'],
+            'cover' => $fileName,
             'slug' => $data['slug'],
             'publish_at' => $data['publish_at'],
         ]);
@@ -115,7 +123,11 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        //
+        return view('admin.book.edit', [
+            'book' => $book,
+            'categories' => Category::orderBy('name', 'asc')->get(),
+            'racks' => Rack::orderBy('name', 'asc')->get(),
+        ]);
     }
 
     /**
@@ -127,7 +139,53 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
-        //
+        $data = $this->validate($request, [
+            'title' => 'required',
+            'category_id' => 'required',
+            'publisher' => 'required',
+            'author' => 'required',
+            'rack_id' => 'required',
+            'description' => 'required',
+            'publish_at' => 'required',
+            'cover' => 'image',
+        ]);
+
+        // Save the cover
+        if ($request->file('cover')) {
+            Storage::delete($book->cover, 'public');
+            $image          = $request->file('cover');
+            $fileName       = $data['title'] . '.' . $image->getClientOriginalExtension();
+            $request->file('cover')->storeAs(
+                'assets/book-cover',
+                $fileName,
+                'public'
+            );
+        } else {
+            $fileName = $book->cover;
+        }
+
+        $data['slug'] = Str::slug($request->title) . '-' . Str::random(10);
+        $book->update([
+            'title' => $data['title'],
+            'publisher' => $data['publisher'],
+            'author' => $data['author'],
+            'rack_id' => $data['rack_id'],
+            'description' => $data['description'],
+            'cover' => $fileName,
+            'slug' => $data['slug'],
+            'publish_at' => $data['publish_at'],
+        ]);
+
+        // Update Kategori
+        BookCategory::where('book_id', $book->id)->delete();
+        for ($i = 0; $i < count($request->category_id); $i++) {
+            BookCategory::create([
+                'book_id' => $book->id,
+                'category_id' => $request->category_id[$i]
+            ]);
+        }
+
+        return redirect()->route('admin.book.index')->withToastSuccess("Berhasil mengubah buku $request->title!");
     }
 
     /**

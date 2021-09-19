@@ -24,7 +24,7 @@
                     @foreach ($books as $item)
                         <tr>
                             <td class="text-center">{{ $item->title }}</td>
-                            <td class="text-center"><img src="{{ Storage::url($item->cover) }}" height="80"
+                            <td class="text-center"><img src="{{ Storage::url('/assets/book-cover/'.$item->cover) }}" height="80"
                                     alt=""></td>
                             <td class="text-center">
                                 @foreach ( $item->bookCategory  as $row)

@@ -1,18 +1,19 @@
-@extends('admin.layout.app', ['title' => 'Tambah Buku', 'active' => 'book'])
+@extends('admin.layout.app', ['title' => 'Ubah Buku - '.$book->title, 'active' => 'book'])
 @section('content')
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    Form Tambah Buku
+                    Form Ubah Buku
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('admin.book.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('admin.book.update', $book) }}" method="POST" enctype="multipart/form-data">
                         @csrf
+                        @method('put')
                         <div class="row">
                             <div class="col-sm-6 mb-3">
                                 <label for="title">Judul<sup class="text-danger">*</sup></label>
-                                <input type="text" class="form-control @error('title') is-invalid @enderror" id="title"  name="title" value="{{ old('title') ?? '' }}" required autofocus> 
+                                <input type="text" class="form-control @error('title') is-invalid @enderror" id="title"  name="title" value="{{ old('title') ?? $book->title ?? '' }}" required autofocus> 
                                 @error('title')
                                     <div class="invalid-feedback">
                                         <i class="bx bx-radio-circle"></i>
@@ -26,14 +27,20 @@
                                     <select class="choices form-select multiple-remove"
                                         multiple="multiple" name="category_id[]" id="category_id" required>
                                         @foreach ($categories as $item)
-                                            <option value="{{ $item->id }}">{{ $item->name }}</option>                                            
+                                            <option value="{{ $item->id }}" 
+                                                @foreach ($book->bookCategory as $row)
+                                                    @if ($row->category_id == $item->id)
+                                                        {{ 'selected' }}
+                                                    @endif
+                                                @endforeach
+                                            >{{ $item->name }}</option>                                            
                                         @endforeach                                         
                                     </select>
                                 </div>
                             </div>
                             <div class="col-sm-3 mb-3">
                                 <label for="publisher">Penerbit<sup class="text-danger">*</sup></label>
-                                <input type="text" class="form-control @error('publisher') is-invalid @enderror" id="publisher"  name="publisher" {{ old('publisher') ?? '' }} required>
+                                <input type="text" class="form-control @error('publisher') is-invalid @enderror" id="publisher"  name="publisher" value=" {{ old('publisher') ?? $book->publisher ?? '' }}" required>
                                 @error('publisher')
                                     <div class="invalid-feedback">
                                         <i class="bx bx-radio-circle"></i>
@@ -43,7 +50,7 @@
                             </div>
                             <div class="col-sm-3 mb-3">
                                 <label for="author">Penulis<sup class="text-danger">*</sup></label>
-                                <input type="text" class="form-control @error('author') is-invalid @enderror" id="author"  name="author" {{ old('author') ?? '' }} required>
+                                <input type="text" class="form-control @error('author') is-invalid @enderror" id="author"  name="author" value="{{ old('author') ?? $book->author ?? '' }}" required>
                                 @error('author')
                                     <div class="invalid-feedback">
                                         <i class="bx bx-radio-circle"></i>
@@ -57,7 +64,7 @@
                                     <select class="form-select @error('rack_id') is-invalid @enderror" name="rack_id" id="rack" required>
                                         <option value="">-- Pilih Rak --</option>                                            
                                         @foreach ($racks as $item)
-                                        <option value="{{ $item->id }}" @if ($item->slug == old('rack_id')) {{ 'selected' }} @endif >{{ $item->name }}</option>                                            
+                                        <option value="{{ $item->id }}" @if ($item->slug == old('rack_id') || ($item->id == $book->rack_id)) {{ 'selected' }} @endif >{{ $item->name }}</option>                                            
                                         @endforeach                                        
                                     </select>
                                     @error('rack_id')
@@ -70,7 +77,7 @@
                             </div>
                             <div class="col-sm-3 mb-3">
                                 <label for="publish_at">Waktu Rilis<sup class="text-danger">*</sup></label>
-                                <input type="date" class="form-control @error('publish_at') is-invalid @enderror" id="publish_at"  name="publish_at" {{ old('publish_at') ?? '' }} required>
+                                <input type="date" class="form-control @error('publish_at') is-invalid @enderror" id="publish_at"  name="publish_at" value="{{ old('publish_at')  ?? date_format($book->publish_at, 'Y-m-d') ?? '' }}" required>
                                 @error('publish_at')
                                     <div class="invalid-feedback">
                                         <i class="bx bx-radio-circle"></i>
@@ -81,7 +88,7 @@
                             <div class="col-12">
                                 <label for="description">Deskripsi<sup class="text-danger">*</sup></label>
                                 <textarea name="description" id="description" rows="3"
-                                    class="form-control @error('description') is-invalid @enderror" required>{{ old('description') ?? '' }}</textarea>
+                                    class="form-control @error('description') is-invalid @enderror" required>{{ old('description') ?? $book->description ??'' }}</textarea>
                                 @error('description')
                                     <div class="invalid-feedback">
                                         <i class="bx bx-radio-circle"></i>
@@ -108,36 +115,7 @@
                                         </div>
                                     @enderror
                                 </div>
-                            </div>
-                            <div class="col-sm-6 mt-1">
-                                <div class="increment d-inline"><br>
-                                    <label for="code">Kode Buku</label>
-                                    <div class="input-group">
-                                        <input type="text" name="code[]" class="form-control @error('code') is-invalid @enderror" id="code" required>
-                                        <div class="input-group-append">
-                                            <button type="button"
-                                                class="border-none btn btn-outline-primary btn-add"><i
-                                                    class="fas fa-plus-square"></i></button>
-                                        </div>
-                                    </div>
-                                    @error('code')
-                                        <div class="invalid-feedback">
-                                            <i class="bx bx-radio-circle"></i>
-                                            {{$message}}
-                                        </div>
-                                    @enderror
-                                </div>
-                                <div class="clone invisible">
-                                    <div class="input-group mt-2">
-                                        <input type="text" name="code[]" class="form-control">
-                                        <div class="input-group-append">
-                                            <button type="button"
-                                                class="border-none btn btn-outline-danger btn-remove"><i
-                                                    class="fas fa-minus-square"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            </div>                            
                         </div>
                         <div class="col-12 text-end">
                             <button type="submit" class="btn btn-primary">Simpan</button>                            
@@ -158,29 +136,15 @@
     <script src="{{asset('dist/assets/vendors/choices.js/choices.min.js')}}"></script>
     <script src="{{asset('dist/assets/js/pages/form-element-select.js')}}"></script>
 
-    <script src="{{asset('dist/assets/js/main.js')}}"></script>
-    <script src="{{asset('dist/assets/vendors/jquery/jquery.min.js')}}"></script>
-    <script src="{{asset('dist/assets/vendors/vue/vue.js')}}"></script>
-
-    <script>
-        jQuery(document).ready(function () {
-            jQuery(".btn-add").click(function () {
-                let markup = jQuery(".invisible").html();
-                jQuery(".increment").append(markup);
-            });
-            jQuery("body").on("click", ".btn-remove", function () {
-                jQuery(this).parents(".input-group").remove();
-            })
-        })
-
-    </script>
+    <script src="{{asset('dist/assets/js/main.js')}}"></script>    
+    <script src="{{asset('dist/assets/vendors/vue/vue.js')}}"></script>   
 
     <script>
         const photo = new Vue({
             el: '#photo',
             data() {
                 return {
-                    previewimage: null,
+                    previewimage: "{{ Storage::url('/assets/book-cover/'.$book->cover) }}",
                 }
             },
             methods: {
