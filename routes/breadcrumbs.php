@@ -33,7 +33,7 @@ Breadcrumbs::for('admin.book.edit', function ($trail, $book) {
 });
 Breadcrumbs::for('admin.book.show', function ($trail, $book) {
     $trail->push('Buku', route('admin.book.index'));
-    $trail->push('Ubah Buku', route('admin.book.show', $book));
+    $trail->push($book->title, route('admin.book.show', $book));
 });
 
 // Author Edit

@@ -112,7 +112,9 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        //
+        return view('admin.book.show', [
+            'book' => $book
+        ]);
     }
 
     /**
