@@ -25,5 +25,5 @@ Route::delete('/category{category}', [CategoryController::class, 'destroy'])->na
 // Book
 Route::resource('/book', BookController::class);
 Route::post('/book-code', [BookController::class, 'bookCodeStore'])->name('book-code.store');
-Route::put('/book-code', [BookController::class, 'bookCodeUpdate'])->name('book-code.update');
-Route::delete('/book-code', [BookController::class, 'bookCodeDestroy'])->name('book-code.destroy');
+Route::put('/book-code/{code}', [BookController::class, 'bookCodeUpdate'])->name('book-code.update');
+Route::delete('/book-code/{code}', [BookController::class, 'bookCodeDestroy'])->name('book-code.destroy');

@@ -219,10 +219,23 @@ class BookController extends Controller
 
         return redirect()->route('admin.book.show', $request->book_slug)->withToastSuccess("Berhasil menambahkan buku dengan kode" . $data['code'] . "!");
     }
-    // public function bookCodeUpdate(BookCode $code, Request $request)
-    // {
-    // }
-    // public function bookCodeDestroy(BookcCode $code, Request $request)
-    // {
-    // }
+    public function bookCodeUpdate(BookCode $code, Request $request)
+    {
+        $data = $this->validate($request, [
+            'code' => 'required',
+            'book_id' => 'required',
+        ]);
+        $data['condition'] = $request->condition;
+        $data['description'] = $request->description;
+
+        $code->update($data);
+
+        return redirect()->route('admin.book.show', $request->book_slug)->withToastSuccess("Berhasil mengubah buku dengan kode" . $data['code'] . "!");
+    }
+    public function bookCodeDestroy(BookCode $code, Request $request)
+    {
+        $name = $code->code;
+        $code->delete();
+        return redirect()->route('admin.book.show', $request->book_slug)->withToastSuccess("Berhasil menghapus buku dengan kode $name!");
+    }
 }

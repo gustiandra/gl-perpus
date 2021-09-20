@@ -179,11 +179,11 @@
                                                         <!-- Button trigger for ubah kategori -->
                                                         <button type="button" class="btn btn-primary btn-sm"
                                                             data-bs-toggle="modal" data-bs-backdrop="false"
-                                                            data-bs-target="#ubah{{ $row->code }}">
+                                                            data-bs-target="#ubah{{ $row->id }}">
                                                             <i class="fas fa-pen"></i>
                                                         </button>
                                                         <!--Disabled Backdrop Modal -->
-                                                        <div class="modal fade text-left" id="ubah{{ $row->code }}"
+                                                        <div class="modal fade text-left" id="ubah{{ $row->id }}"
                                                             tabindex="-1" role="dialog"
                                                             aria-labelledby="myModalLabel160"
                                                             aria-hidden="true">
@@ -201,7 +201,11 @@
                                                                             <i data-feather="x"></i>
                                                                         </button>
                                                                     </div>
-                                                                    <form action="#">
+                                                                    <form action="{{ route('admin.book-code.update', $row->id) }}" method="POST">
+                                                                        @csrf
+                                                                        @method('put')
+                                                                        <input type="hidden" value="{{ $book->id }}" name="book_id">
+                                                                        <input type="hidden" value="{{ $book->slug }}" name="book_slug">
                                                                         <div class="modal-body">
                                                                             <label>Kode Buku</label>
                                                                             <div class="form-group">
@@ -211,9 +215,9 @@
                                                                             <label>Kondisi</label>
                                                                             <div class="form-group">
                                                                                 <select class="form-select" name="condition" required>
-                                                                                    <option value="BAIK" @if($book->condition == "BAIK") {{ 'selected' }} @endif>Baik</option>
-                                                                                    <option value="RUSAK RINGAN" @if($book->condition == "RUSAK RINGAN") {{ 'selected' }} @endif> Rusak Ringan</option>
-                                                                                    <option value="RUSAK BERAT" @if($book->condition == "RUSAK BERAT") {{ 'selected' }} @endif>Rusak Berat</option>
+                                                                                    <option value="BAIK" @if($row->condition == "BAIK") {{ 'selected' }} @endif>Baik</option>
+                                                                                    <option value="RUSAK RINGAN" @if($row->condition == "RUSAK RINGAN") {{ 'selected' }} @endif> Rusak Ringan</option>
+                                                                                    <option value="RUSAK BERAT" @if($row->condition == "RUSAK BERAT") {{ 'selected' }} @endif>Rusak Berat</option>
                                                                                 </select>
                                                                             </div>
                                                                             <label>Keterangan</label>
@@ -239,12 +243,13 @@
                                                             </div>
                                                         </div>
                                                         &nbsp;
-                                                        <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" onclick="deleteConfirm('deleteConfirm{{ $row->code }}', '{{ $row->code }}')" class="btn btn-sm btn-danger" title="Hapus Buku">
+                                                        <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" onclick="deleteConfirm('deleteConfirm{{ $row->id }}', '{{ $row->code }}')" class="btn btn-sm btn-danger" title="Hapus Buku">
                                                             <i class=" fas fa-trash-alt"></i>
                                                         </a>
-                                                        <form action="{{ route('admin.book-code.destroy', $row) }}" method="POST" id="deleteConfirm{{ $row->code }}">
+                                                        <form action="{{ route('admin.book-code.destroy', $row) }}" method="POST" id="deleteConfirm{{ $row->id }}">
                                                             @csrf
                                                             @method('delete')
+                                                            <input type="hidden" name="book_slug" value="{{ $book->slug }}">
                                                         </form>
                                                     </td>
                                                 </tr>
