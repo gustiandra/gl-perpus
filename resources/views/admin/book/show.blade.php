@@ -115,7 +115,10 @@
                                                         <i data-feather="x"></i>
                                                     </button>
                                                 </div>
-                                                <form action="#">
+                                                <form action="{{ route('admin.book-code.store') }}" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" value="{{ $book->id }}" name="book_id">
+                                                    <input type="hidden" value="{{ $book->slug }}" name="book_slug">
                                                     <div class="modal-body">
                                                         <label>Kode Buku</label>
                                                         <div class="form-group">
@@ -148,8 +151,7 @@
                                                             <span class="d-none d-sm-block">Close</span>
                                                         </button>
                                                         <button type="submit"
-                                                            class="btn btn-primary ml-1"
-                                                            data-bs-dismiss="modal">
+                                                            class="btn btn-primary ml-1">
                                                             <span
                                                                 class="d-none d-sm-block">Simpan</span>
                                                         </button>
@@ -168,196 +170,85 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td class="text-center">123-1111-232</td>
-                                                <td class="text-center">Baik</td>
-                                                <td class="text-center">-</td>
-                                                <td class="d-flex justify-content-center">
-                                                    <!-- Button trigger for ubah kategori -->
-                                                    <button type="button" class="btn btn-primary btn-sm"
-                                                        data-bs-toggle="modal" data-bs-backdrop="false"
-                                                        data-bs-target="#ubah">
-                                                        <i class="fas fa-pen"></i>
-                                                    </button>
-                                                    <!--Disabled Backdrop Modal -->
-                                                    <div class="modal fade text-left" id="ubah"
-                                                        tabindex="-1" role="dialog"
-                                                        aria-labelledby="myModalLabel160"
-                                                        aria-hidden="true">
-                                                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
-                                                            role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header bg-primary">
-                                                                    <h5 class="modal-title white"
-                                                                        id="myModalLabel160">Ubah
-                                                                        Detail Buku: 122-2222-111
-                                                                    </h5>
-                                                                    <button type="button" class="close"
-                                                                        data-bs-dismiss="modal"
-                                                                        aria-label="Close">
-                                                                        <i data-feather="x"></i>
-                                                                    </button>
+                                            @foreach ($book->bookCode as $row)
+                                                <tr>
+                                                    <td class="text-center">{{ $row->code }}</td>
+                                                    <td class="text-center">{{ $row->condition }}</td>
+                                                    <td class="text-center">{{ $row->description ?? "-" }}</td>
+                                                    <td class="d-flex justify-content-center">
+                                                        <!-- Button trigger for ubah kategori -->
+                                                        <button type="button" class="btn btn-primary btn-sm"
+                                                            data-bs-toggle="modal" data-bs-backdrop="false"
+                                                            data-bs-target="#ubah{{ $row->code }}">
+                                                            <i class="fas fa-pen"></i>
+                                                        </button>
+                                                        <!--Disabled Backdrop Modal -->
+                                                        <div class="modal fade text-left" id="ubah{{ $row->code }}"
+                                                            tabindex="-1" role="dialog"
+                                                            aria-labelledby="myModalLabel160"
+                                                            aria-hidden="true">
+                                                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+                                                                role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header bg-primary">
+                                                                        <h5 class="modal-title white"
+                                                                            id="myModalLabel160">Ubah
+                                                                            Kode Buku: {{ $row->code }}
+                                                                        </h5>
+                                                                        <button type="button" class="close"
+                                                                            data-bs-dismiss="modal"
+                                                                            aria-label="Close">
+                                                                            <i data-feather="x"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                    <form action="#">
+                                                                        <div class="modal-body">
+                                                                            <label>Kode Buku</label>
+                                                                            <div class="form-group">
+                                                                                <input type="text" class="form-control" name="code"
+                                                                                    value="{{ $row->code }}">
+                                                                            </div>
+                                                                            <label>Kondisi</label>
+                                                                            <div class="form-group">
+                                                                                <select class="form-select" name="condition" required>
+                                                                                    <option value="BAIK" @if($book->condition == "BAIK") {{ 'selected' }} @endif>Baik</option>
+                                                                                    <option value="RUSAK RINGAN" @if($book->condition == "RUSAK RINGAN") {{ 'selected' }} @endif> Rusak Ringan</option>
+                                                                                    <option value="RUSAK BERAT" @if($book->condition == "RUSAK BERAT") {{ 'selected' }} @endif>Rusak Berat</option>
+                                                                                </select>
+                                                                            </div>
+                                                                            <label>Keterangan</label>
+                                                                            <div class="form-group">
+                                                                                <textarea name="description" rows="3" class="form-control">{{ $row->description }}</textarea>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button"
+                                                                                class="btn btn-light-secondary"
+                                                                                data-bs-dismiss="modal">
+                                                                                <i
+                                                                                    class="bx bx-x d-block d-sm-none"></i>
+                                                                                <span
+                                                                                    class="d-none d-sm-block">Close</span>
+                                                                            </button>
+                                                                            <button type="submit" class="btn btn-primary ml-1">
+                                                                                <span class="d-none d-sm-block">Simpan</span>
+                                                                            </button>
+                                                                        </div>
+                                                                    </form>
                                                                 </div>
-                                                                <form action="#">
-                                                                    <div class="modal-body">
-                                                                        <label>Kode Buku</label>
-                                                                        <div class="form-group">
-                                                                            <input type="text"
-                                                                                placeholder="Contoh: 123-1111-232"
-                                                                                class="form-control"
-                                                                                name="book_code"
-                                                                                value="123-1111-232">
-                                                                        </div>
-                                                                        <label>Kondisi</label>
-                                                                        <div class="form-group">
-                                                                            <select class="form-select"
-                                                                                name="condition"
-                                                                                required>
-                                                                                <option value="BAIK">
-                                                                                    Baik</option>
-                                                                                <option
-                                                                                    value="RUSAK RINGAN">
-                                                                                    Rusak Ringan
-                                                                                </option>
-                                                                                <option
-                                                                                    value="RUSAK BERAT">
-                                                                                    Rusak Berat</option>
-                                                                            </select>
-                                                                        </div>
-                                                                        <label>Keterangan</label>
-                                                                        <div class="form-group">
-                                                                            <textarea name="description"
-                                                                                rows="3"
-                                                                                class="form-control">Sobek di halaman 34</textarea>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="button"
-                                                                            class="btn btn-light-secondary"
-                                                                            data-bs-dismiss="modal">
-                                                                            <i
-                                                                                class="bx bx-x d-block d-sm-none"></i>
-                                                                            <span
-                                                                                class="d-none d-sm-block">Close</span>
-                                                                        </button>
-                                                                        <button type="button"
-                                                                            class="btn btn-primary ml-1"
-                                                                            data-bs-dismiss="modal">
-                                                                            <i
-                                                                                class="bx bx-check d-block d-sm-none"></i>
-                                                                            <span
-                                                                                class="d-none d-sm-block">Simpan</span>
-                                                                        </button>
-                                                                    </div>
-                                                                </form>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    &nbsp;
-                                                    <a href="#" data-bs-toggle="tooltip"
-                                                        data-bs-placement="top"
-                                                        onclick="deleteConfirm('form', '123-1111-232')"
-                                                        class="btn btn-sm btn-danger"
-                                                        title="Hapus Buku">
-                                                        <i class=" fas fa-trash-alt"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-center">123-1111-232</td>
-                                                <td class="text-center">Rusak Ringan</td>
-                                                <td class="text-center">Sobek di halaman 34</td>
-                                                <td class="d-flex justify-content-center">
-                                                    <!-- Button trigger for ubah kategori -->
-                                                    <button type="button" class="btn btn-primary btn-sm"
-                                                        data-bs-toggle="modal" data-bs-backdrop="false"
-                                                        data-bs-target="#ubah">
-                                                        <i class="fas fa-pen"></i>
-                                                    </button>
-                                                    <!--Disabled Backdrop Modal -->
-                                                    <div class="modal fade text-left" id="ubah"
-                                                        tabindex="-1" role="dialog"
-                                                        aria-labelledby="myModalLabel160"
-                                                        aria-hidden="true">
-                                                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
-                                                            role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header bg-primary">
-                                                                    <h5 class="modal-title white"
-                                                                        id="myModalLabel160">Ubah
-                                                                        Detail Buku: 122-2222-111
-                                                                    </h5>
-                                                                    <button type="button" class="close"
-                                                                        data-bs-dismiss="modal"
-                                                                        aria-label="Close">
-                                                                        <i data-feather="x"></i>
-                                                                    </button>
-                                                                </div>
-                                                                <form action="#">
-                                                                    <div class="modal-body">
-                                                                        <label>Kode Buku</label>
-                                                                        <div class="form-group">
-                                                                            <input type="text"
-                                                                                placeholder="Contoh: 123-1111-232"
-                                                                                class="form-control"
-                                                                                name="book_code"
-                                                                                value="123-1111-232">
-                                                                        </div>
-                                                                        <label>Kondisi</label>
-                                                                        <div class="form-group">
-                                                                            <select class="form-select"
-                                                                                name="condition"
-                                                                                required>
-                                                                                <option value="BAIK">
-                                                                                    Baik</option>
-                                                                                <option
-                                                                                    value="RUSAK RINGAN">
-                                                                                    Rusak Ringan
-                                                                                </option>
-                                                                                <option
-                                                                                    value="RUSAK BERAT">
-                                                                                    Rusak Berat</option>
-                                                                            </select>
-                                                                        </div>
-                                                                        <label>Keterangan</label>
-                                                                        <div class="form-group">
-                                                                            <textarea name="description"
-                                                                                rows="3"
-                                                                                class="form-control">Sobek di halaman 34</textarea>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="button"
-                                                                            class="btn btn-light-secondary"
-                                                                            data-bs-dismiss="modal">
-                                                                            <i
-                                                                                class="bx bx-x d-block d-sm-none"></i>
-                                                                            <span
-                                                                                class="d-none d-sm-block">Close</span>
-                                                                        </button>
-                                                                        <button type="button"
-                                                                            class="btn btn-primary ml-1"
-                                                                            data-bs-dismiss="modal">
-                                                                            <i
-                                                                                class="bx bx-check d-block d-sm-none"></i>
-                                                                            <span
-                                                                                class="d-none d-sm-block">Simpan</span>
-                                                                        </button>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    &nbsp;
-                                                    <a href="#" data-bs-toggle="tooltip"
-                                                        data-bs-placement="top"
-                                                        onclick="deleteConfirm('form', '123-1111-232')"
-                                                        class="btn btn-sm btn-danger"
-                                                        title="Hapus Buku">
-                                                        <i class=" fas fa-trash-alt"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
+                                                        &nbsp;
+                                                        <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" onclick="deleteConfirm('deleteConfirm{{ $row->code }}', '{{ $row->code }}')" class="btn btn-sm btn-danger" title="Hapus Buku">
+                                                            <i class=" fas fa-trash-alt"></i>
+                                                        </a>
+                                                        <form action="{{ route('admin.book-code.destroy', $row) }}" method="POST" id="deleteConfirm{{ $row->code }}">
+                                                            @csrf
+                                                            @method('delete')
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>

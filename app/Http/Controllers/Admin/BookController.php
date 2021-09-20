@@ -112,6 +112,7 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
+        $book->load('bookCode');
         return view('admin.book.show', [
             'book' => $book
         ]);
@@ -204,4 +205,24 @@ class BookController extends Controller
         $book->delete();
         return redirect()->route('admin.book.index')->withToastSuccess("Berhasil menghapus buku $name!");
     }
+
+    public function bookCodeStore(Request $request)
+    {
+        $data = $this->validate($request, [
+            'code' => 'required',
+            'book_id' => 'required',
+        ]);
+        $data['condition'] = $request->condition;
+        $data['description'] = $request->description;
+
+        BookCode::create($data);
+
+        return redirect()->route('admin.book.show', $request->book_slug)->withToastSuccess("Berhasil menambahkan buku dengan kode" . $data['code'] . "!");
+    }
+    // public function bookCodeUpdate(BookCode $code, Request $request)
+    // {
+    // }
+    // public function bookCodeDestroy(BookcCode $code, Request $request)
+    // {
+    // }
 }
