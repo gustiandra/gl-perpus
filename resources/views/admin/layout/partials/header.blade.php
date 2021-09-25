@@ -37,8 +37,14 @@
                                     class="icon-mid bi bi-clock-history me-2"></i>Riwayat</a></li>
                         <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="login.html"><i
-                                    class="icon-mid bi bi-box-arrow-left me-2"></i>Keluar</a></li>
+                        <li>
+                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();"><i
+                                    class="icon-mid bi bi-box-arrow-left me-2"></i>Keluar</a>                                    
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                        </li>
                     </ul>
                 </div>
             </div>
