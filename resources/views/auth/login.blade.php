@@ -46,6 +46,9 @@
                     <input type="submit" value="Log In" class="btn btn-block btn-primary">
 
                 </form>
+                <span class="d-flex justify-content-center mt-5"><a class="forgot-pass" href="{{ route('register') }}">
+                    Belum memiliki akun? Registrasi
+                </a></span>
             </div>
         </div>
     </div>
