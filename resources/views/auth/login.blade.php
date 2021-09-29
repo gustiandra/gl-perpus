@@ -4,7 +4,7 @@
         <div class="row align-items-center justify-content-center mt-3">
             <div class="col-md-8">
                 <div class="mb-4">
-                    <h1 class="font-weight-bold text-primary">GL-Perpus</h1>
+                    <a href="{{ route('home') }}" class="text-decoration-none"><h1 class="font-weight-bold text-primary">GL-Perpus</h1></a>
                 </div>
                 <div class="mb-4">
                     <h4 class="font-weight-bolder">Log In</h4>
