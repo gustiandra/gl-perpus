@@ -96,6 +96,15 @@ section {
   -webkit-text-fill-color: transparent;
 }
 
+/* Top Header */
+
+#top-header {  
+  background-color: #1E1F29;
+}
+
+
+
+/* End Top Header */
 /* Back to top button */
 .back-to-top {
   position: fixed;
