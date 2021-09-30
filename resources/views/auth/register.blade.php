@@ -10,7 +10,7 @@
                     <h4 class="font-weight-bolder">Registrasi</h4>
                     <p class="mb-4">Lengkapi form di bawah dengan data yang valid</p>
                 </div>
-                <form method="POST" action="{{ route('login') }}">
+                <form method="POST" action="{{ route('register') }}">
                     @csrf                            
                     <div class="form-group">
                         <label for="name">Nama</label>
@@ -40,11 +40,11 @@
                         @enderror
                     </div>
                     <div class="form-group  mb-3">
-                        <label for="password">Konfirmasi Password</label>
+                        <label for="password">Ulangi Password</label>
                         <input type="password" class="form-control @error('password') is-invalid @enderror" name="password_confirmation" required autocomplete="new-password">
                     </div>                    
 
-                    <input type="submit" value="Mendaftar" class="btn btn-block btn-primary">
+                    <input type="submit" value="Daftar" class="btn btn-block btn-primary">
                     <span class="d-flex justify-content-center mt-4"><a class="forgot-pass" href="{{ route('login') }}">
                         Sudah memiliki akun? Log in
                     </a></span>

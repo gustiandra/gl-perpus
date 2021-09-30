@@ -21,7 +21,7 @@ class CreateMembersTable extends Migration
             $table->string('job');
             $table->string('photo_IdCard');
             $table->string('photo');
-            $table->string('status');
+            $table->enum('status', ['AKTIF', 'MENUNGGU', 'DIBLOKIR']);
             $table->timestamps();
         });
     }

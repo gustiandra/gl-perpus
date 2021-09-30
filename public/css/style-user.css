@@ -468,6 +468,14 @@ section {
   color: #19182C !important;
 }
 
+.sticky-wrapper.is-sticky .site-navbar .site-menu > li > a.btn {
+  color: #fff !important;
+}
+
+.sticky-wrapper.is-sticky .site-navbar .site-menu > li > a {
+  color: #19182C !important;
+}
+
 .sticky-wrapper.is-sticky .site-navbar .site-menu > li > a:hover, .sticky-wrapper.is-sticky .site-navbar .site-menu > li > a.active {
   color: #3931af !important;
 }

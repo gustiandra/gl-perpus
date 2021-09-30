@@ -26,14 +26,23 @@
                         <li><a href="buku.html" class="nav-link">Buku</a></li>
                         <li><a href="pricing.html" class="nav-link">Peraturan</a></li>
                         <li><a href="pricing.html" class="nav-link">Kontak</a></li>
-
-                        <li class="has-children">
-                            <a href="blog.html" class="nav-link">Gustiandra</a>
-                            <ul class="dropdown">
-                                <li><a href="blog.html" class="nav-link">Dashboard</a></li>
-                                <li><a href="blog-single.html" class="nav-link">Keluar</a></li>
-                            </ul>
-                        </li>
+                        
+                        @guest
+                        <li><a href="{{ route('login') }}" class="nav-link btn btn-sm btn-secondary text-white">Login</a></li>                            
+                        <li><a href="{{ route('register') }}" class="nav-link btn btn-sm btn-primary text-white">Registrasi</a></li>
+                        @else
+                            <li class="has-children">
+                                <a href="blog.html" class="nav-link">{{ Auth::user()->name }}</a>
+                                <ul class="dropdown">
+                                    <li><a href="blog.html" class="nav-link">Dashboard</a></li>
+                                    <li><a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">Keluar</a></li>                                    
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </ul>
+                            </li>
+                        @endguest
                     </ul>
                 </nav>
             </div>
