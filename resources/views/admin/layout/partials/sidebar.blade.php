@@ -15,102 +15,115 @@
                     <li class="sidebar-title">Menu</li>
 
                     <li class="sidebar-item  @if ($active == 'dashboard') {{ 'active' }} @endif">
-                        <a href="index.html" class='sidebar-link'>
+                        <a href="@if (Auth::user()->hasRole('member'))
+                            {{ route('member.dashboard') }}
+                        @endif" class='sidebar-link'>
                             <i class="bi bi-grid"></i>
                             <span>Dashboard</span>
                         </a>
                     </li>
 
-                    <li class="sidebar-item has-sub @if ($active == 'rack' || $active == 'category' || $active == 'book') {{ 'active' }} @endif">
-                        <a href="#" class='sidebar-link'>
-                            <i class="bi bi-book-half"></i>
-                            <span>Manajemen Buku</span>
+                    {{-- Sidebar Admin --}}
+                    @if (Auth::user()->hasRole('admin|super-admin'))                        
+                        <li class="sidebar-item has-sub @if ($active == 'rack' || $active == 'category' || $active == 'book') {{ 'active' }} @endif">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-book-half"></i>
+                                <span>Manajemen Buku</span>
+                            </a>
+                            <ul class="submenu @if ($active == 'rack' || $active == 'category' || $active == 'book') {{ 'active' }} @endif">
+                                <li class="submenu-item @if ($active == 'category') {{ 'active' }} @endif">
+                                    <a href="{{ route('admin.category.index') }}">Kategori</a>
+                                </li>
+                                <li class="submenu-item @if ($active == 'rack') {{ 'active' }} @endif">
+                                    <a href="{{ route('admin.rack.index') }}">Rak</a>
+                                </li>
+                                <li class="submenu-item @if ($active == 'book') {{ 'active' }} @endif">
+                                    <a href="{{ route('admin.book.index') }}">Buku</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-people"></i>
+                                <span>Manajemen Anggota</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="verifikasi-anggota.html">Verifikasi Anggota</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="anggota.html">Anggota</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="anggota-diblokir.html">Anggota Diblokir</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="sidebar-item has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-journals"></i>
+                                <span>Peminjaman Buku</span>
+                            </a>
+                            <ul class="submenu">
+                                <li class="submenu-item">
+                                    <a href="verifikasi-peminjaman.html">Verifikasi Peminjaman</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="buku-dipinjam.html">Buku Sedang Dipinjam</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="lewat-batas-peminjaman.html">Lewat Batas Peminjaman</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="sidebar-item has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-graph-up"></i>
+                                <span>Laporan</span>
+                            </a>
+                            <ul class="submenu">
+                                <li class="submenu-item">
+                                    <a href="favorit.html">Favorit</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a href="anggota-teraktif.html">Anggota Teraktif</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a href="seluruh-peminjaman.html">Seluruh Peminjaman</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a href="buku-rusak.html" class='sidebar-link'>
+                                <i class="bi bi-card-checklist"></i>
+                                <span>Pencatatan Buku Rusak</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="denda.html" class='sidebar-link'>
+                                <i class="bi bi-wallet"></i>
+                                <span>Catatan Keuangan Denda</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="peraturan.html" class='sidebar-link'>
+                                <i class="bi bi-gear"></i>
+                                <span>Peraturan</span>
+                            </a>
+                        </li>
+                    @elseif (Auth::user()->hasRole('member'))
+                    <li class="sidebar-item @if ($active == 'profile') {{ 'active' }} @endif">
+                        <a href="{{ route('member.profile') }}" class='sidebar-link'>
+                            <i class="bi bi-person"></i>
+                            <span>Profil</span>
                         </a>
-                        <ul class="submenu @if ($active == 'rack' || $active == 'category' || $active == 'book') {{ 'active' }} @endif">
-                            <li class="submenu-item @if ($active == 'category') {{ 'active' }} @endif">
-                                <a href="{{ route('admin.category.index') }}">Kategori</a>
-                            </li>
-                            <li class="submenu-item @if ($active == 'rack') {{ 'active' }} @endif">
-                                <a href="{{ route('admin.rack.index') }}">Rak</a>
-                            </li>
-                            <li class="submenu-item @if ($active == 'book') {{ 'active' }} @endif">
-                                <a href="{{ route('admin.book.index') }}">Buku</a>
-                            </li>
-                        </ul>
                     </li>
 
-                    <li class="sidebar-item  has-sub">
-                        <a href="#" class='sidebar-link'>
-                            <i class="bi bi-people"></i>
-                            <span>Manajemen Anggota</span>
-                        </a>
-                        <ul class="submenu ">
-                            <li class="submenu-item ">
-                                <a href="verifikasi-anggota.html">Verifikasi Anggota</a>
-                            </li>
-                            <li class="submenu-item ">
-                                <a href="anggota.html">Anggota</a>
-                            </li>
-                            <li class="submenu-item ">
-                                <a href="anggota-diblokir.html">Anggota Diblokir</a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="sidebar-item has-sub">
-                        <a href="#" class='sidebar-link'>
-                            <i class="bi bi-journals"></i>
-                            <span>Peminjaman Buku</span>
-                        </a>
-                        <ul class="submenu">
-                            <li class="submenu-item">
-                                <a href="verifikasi-peminjaman.html">Verifikasi Peminjaman</a>
-                            </li>
-                            <li class="submenu-item ">
-                                <a href="buku-dipinjam.html">Buku Sedang Dipinjam</a>
-                            </li>
-                            <li class="submenu-item ">
-                                <a href="lewat-batas-peminjaman.html">Lewat Batas Peminjaman</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="sidebar-item has-sub">
-                        <a href="#" class='sidebar-link'>
-                            <i class="bi bi-graph-up"></i>
-                            <span>Laporan</span>
-                        </a>
-                        <ul class="submenu">
-                            <li class="submenu-item">
-                                <a href="favorit.html">Favorit</a>
-                            </li>
-                            <li class="submenu-item">
-                                <a href="anggota-teraktif.html">Anggota Teraktif</a>
-                            </li>
-                            <li class="submenu-item">
-                                <a href="seluruh-peminjaman.html">Seluruh Peminjaman</a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="sidebar-item">
-                        <a href="buku-rusak.html" class='sidebar-link'>
-                            <i class="bi bi-card-checklist"></i>
-                            <span>Pencatatan Buku Rusak</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="denda.html" class='sidebar-link'>
-                            <i class="bi bi-wallet"></i>
-                            <span>Catatan Keuangan Denda</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="peraturan.html" class='sidebar-link'>
-                            <i class="bi bi-gear"></i>
-                            <span>Peraturan</span>
-                        </a>
-                    </li>
-
+                    @endif
+                    {{-- End Sidebar Admin --}}
                 </ul>
             </div>
             <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>

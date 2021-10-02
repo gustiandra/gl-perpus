@@ -64,7 +64,7 @@ class BookController extends Controller
 
         // Save the cover
         if (!$request->file('cover')) {
-            $data['cover'] = 'assets/book-cover/default-cover.png';
+            $fileName = 'default-cover.png';
         } else {
             $image          = $request->file('cover');
             $fileName       = $data['title'] . '.' . $image->getClientOriginalExtension();

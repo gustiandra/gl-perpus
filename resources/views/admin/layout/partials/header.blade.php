@@ -16,12 +16,16 @@
                     <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="user-menu d-flex">
                             <div class="user-name text-end me-3">
-                                <h6 class="mb-0 text-gray-600">Gustiandra</h6>
-                                <p class="mb-0 text-sm text-gray-600">Administrator</p>
+                                <h6 class="mb-0 text-gray-600">{{ Auth::user()->name }}</h6>
+                                <p class="mb-0 text-sm text-gray-600">{{ strtr(Str::ucfirst(Auth::user()->roles[0]->name), '-', ' ') }}</p>
                             </div>
                             <div class="user-img d-flex align-items-center">
                                 <div class="avatar avatar-md">
-                                    <img src="{{ asset('dist/assets/images/faces/gustiandra.jpg')}}">
+                                    <img src="@if (isset($user->member->photo))
+                                        {{ Storage::url('/assets/profil/'.$user->member->photo) }}
+                                    @else
+                                    {{ Storage::url('/assets/profil/default.png') }}
+                                    @endif">
                                 </div>
                             </div>
                         </div>

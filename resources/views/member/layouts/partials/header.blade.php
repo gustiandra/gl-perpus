@@ -34,7 +34,7 @@
                             <li class="has-children">
                                 <a href="blog.html" class="nav-link">{{ Auth::user()->name }}</a>
                                 <ul class="dropdown">
-                                    <li><a href="blog.html" class="nav-link">Dashboard</a></li>
+                                    <li><a href="{{ route('member.dashboard') }}" class="nav-link">Dashboard</a></li>
                                     <li><a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">Keluar</a></li>                                    
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

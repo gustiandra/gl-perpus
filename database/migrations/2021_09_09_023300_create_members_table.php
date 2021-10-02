@@ -16,12 +16,12 @@ class CreateMembersTable extends Migration
         Schema::create('members', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->string('no_hp');
-            $table->string('address');
-            $table->string('job');
-            $table->string('photo_IdCard');
-            $table->string('photo');
-            $table->enum('status', ['AKTIF', 'MENUNGGU', 'DIBLOKIR']);
+            $table->string('no_hp')->nullable();
+            $table->string('address')->nullable();
+            $table->string('job')->nullable();
+            $table->string('photo_IdCard')->nullable();
+            $table->string('photo')->nullable();
+            $table->enum('status', ['NONE', 'AKTIF', 'MENUNGGU', 'DIBLOKIR']);
             $table->timestamps();
         });
     }

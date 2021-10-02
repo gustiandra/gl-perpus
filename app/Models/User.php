@@ -18,8 +18,14 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @var string[]
      */
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
     protected $fillable = [
         'name',
+        'slug',
         'email',
         'password',
     ];
@@ -42,4 +48,10 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function member()
+    {
+        return $this->hasOne(Member::class);
+    }
 }

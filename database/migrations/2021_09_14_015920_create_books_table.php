@@ -20,7 +20,7 @@ class CreateBooksTable extends Migration
             $table->string('author');
             $table->string('publisher');
             $table->dateTime('publish_at');
-            $table->string('description');
+            $table->text('description');
             $table->string('cover')->nullable();
             $table->unsignedBigInteger('rack_id');
             $table->softDeletes();

@@ -42,3 +42,17 @@ Breadcrumbs::for('admin.book.show', function ($trail, $book) {
 //     $trail->push('Penulis', route('admin.author.index'));
 //     $trail->push('Ubah Data Penulis', route('admin.author.edit', $author));
 // });
+
+
+
+// ======================================== Member =======================================
+
+// Dashboard
+Breadcrumbs::for('member.dashboard', function ($trail) {
+    $trail->push('Dashboard', route('member.dashboard'));
+});
+
+// Profile
+Breadcrumbs::for('member.profile', function ($trail) {
+    $trail->push('Profil', route('member.profile'));
+});
