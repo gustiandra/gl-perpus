@@ -43,20 +43,20 @@
                             </ul>
                         </li>
 
-                        <li class="sidebar-item  has-sub">
+                        <li class="sidebar-item  has-sub @if ($active == 'verif' || $active == 'member' || $active == 'blok') {{ 'active' }} @endif">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-people"></i>
-                                <span>Manajemen Anggota</span>
+                                <span>Manajemen Member</span>
                             </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="verifikasi-anggota.html">Verifikasi Anggota</a>
+                            <ul class="submenu @if ($active == 'verif' || $active == 'member' || $active == 'blok') {{ 'active' }} @endif">
+                                <li class="submenu-item @if ($active == 'verif') {{ 'active' }} @endif">
+                                    <a href="{{ route('admin.member.verif.index') }}">Verifikasi Member</a>
                                 </li>
-                                <li class="submenu-item ">
-                                    <a href="anggota.html">Anggota</a>
+                                <li class="submenu-item @if ($active == 'member') {{ 'active' }} @endif">
+                                    <a href="anggota.html">Member</a>
                                 </li>
-                                <li class="submenu-item ">
-                                    <a href="anggota-diblokir.html">Anggota Diblokir</a>
+                                <li class="submenu-item @if ($active == 'blok') {{ 'active' }} @endif">
+                                    <a href="anggota-diblokir.html">Member Diblokir</a>
                                 </li>
                             </ul>
                         </li>

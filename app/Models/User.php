@@ -54,4 +54,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(Member::class);
     }
+
+    public function getMember()
+    {
+        return $this->hasOne(Member::class)->where('status', 'MENUNGGU|DITOLAK');
+    }
 }

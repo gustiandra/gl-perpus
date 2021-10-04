@@ -43,6 +43,14 @@ Breadcrumbs::for('admin.book.show', function ($trail, $book) {
 //     $trail->push('Ubah Data Penulis', route('admin.author.edit', $author));
 // });
 
+// Member
+Breadcrumbs::for('admin.member.verif.index', function ($trail) {
+    $trail->push('Verifikasi Member', route('admin.member.verif.index'));
+});
+Breadcrumbs::for('admin.member.verif.show', function ($trail, $user) {
+    $trail->push('Verifikasi Member', route('admin.member.verif.index'));
+    $trail->push($user->name, route('admin.member.verif.show', $user));
+});
 
 
 // ======================================== Member =======================================

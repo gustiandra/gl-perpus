@@ -21,7 +21,8 @@ class CreateMembersTable extends Migration
             $table->string('job')->nullable();
             $table->string('photo_IdCard')->nullable();
             $table->string('photo')->nullable();
-            $table->enum('status', ['NONE', 'AKTIF', 'MENUNGGU', 'DIBLOKIR']);
+            $table->enum('status', ['NONE',  'MENUNGGU', 'AKTIF', 'DITOLAK', 'DIBLOKIR']);
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }
