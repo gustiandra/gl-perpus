@@ -111,7 +111,9 @@
                                                                 <i data-feather="x"></i>
                                                             </button>
                                                         </div>
-                                                        <form action="#">
+                                                        <form action="{{ route('admin.member.change-status', $user->member->id) }}" method="POST">
+                                                            @csrf
+                                                            @method('put')
                                                             <div class="modal-body">
                                                                 <label>Status </label>
                                                                 <div class="form-group">
@@ -142,8 +144,7 @@
                                                                         class="d-none d-sm-block">Close</span>
                                                                 </button>
                                                                 <button type="submit"
-                                                                    class="btn btn-primary ml-1"
-                                                                    data-bs-dismiss="modal">
+                                                                    class="btn btn-primary ml-1">
                                                                     <i
                                                                         class="bx bx-check d-block d-sm-none"></i>
                                                                     <span

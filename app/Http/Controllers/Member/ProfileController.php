@@ -97,7 +97,7 @@ class ProfileController extends Controller
 
         // File Photo
         if ($request->file('photo')) {
-            Storage::delete('assets/profil/' . $user->member->cover, 'public');
+            Storage::delete('assets/profil/' . $user->member->photo, 'public');
             $image          = $request->file('photo');
             $fileNamePhoto       = $request->name . '.' . $image->getClientOriginalExtension();
             $request->file('photo')->storeAs(
@@ -111,7 +111,7 @@ class ProfileController extends Controller
 
         // File Id Card
         if ($request->file('photoIdCard')) {
-            Storage::delete('assets/ID Card/' . $user->member->cover, 'public');
+            Storage::delete('assets/ID Card/' . $user->member->photo_IdCard, 'public');
             $image          = $request->file('photoIdCard');
             $fileNameId       = $request->name . '.' . $image->getClientOriginalExtension();
             $request->file('photoIdCard')->storeAs(

@@ -24,6 +24,10 @@ class CreateMembersTable extends Migration
             $table->enum('status', ['NONE',  'MENUNGGU', 'AKTIF', 'DITOLAK', 'DIBLOKIR']);
             $table->string('description')->nullable();
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')
+                ->onUpdate('CASCADE')
+                ->onDelete('CASCADE');
         });
     }
 

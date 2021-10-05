@@ -21,8 +21,8 @@
                             </div>
                             <div class="user-img d-flex align-items-center">
                                 <div class="avatar avatar-md">
-                                    <img src="@if (isset($user->member->photo))
-                                        {{ Storage::url('/assets/profil/'.$user->member->photo) }}
+                                    <img src="@if (isset(Auth::user()->member->photo))
+                                        {{ Storage::url('/assets/profil/' . Auth::user()->member->photo) }}
                                     @else
                                     {{ Storage::url('/assets/profil/default.png') }}
                                     @endif">

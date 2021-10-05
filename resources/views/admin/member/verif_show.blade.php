@@ -16,7 +16,7 @@
                     Email
                 </div>
                 <div class="col-md-10 col-9">
-                    : {{ $user->name }}
+                    : {{ $user->email }}
                 </div>
                 <div class="col-md-2 col-3">
                     No. Hp
