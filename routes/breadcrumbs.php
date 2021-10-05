@@ -62,6 +62,10 @@ Breadcrumbs::for('admin.member.edit', function ($trail, $user) {
     $trail->push('Member', route('admin.member.index'));
     $trail->push('Ubah Member', route('admin.member.edit', $user));
 });
+Breadcrumbs::for('admin.member.show', function ($trail, $member) {
+    $trail->push('Member', route('admin.member.index'));
+    $trail->push('Ubah Member', route('admin.member.show', $member));
+});
 
 // ======================================== Member =======================================
 

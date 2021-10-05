@@ -117,4 +117,11 @@ class MemberController extends Controller
 
         return redirect()->route('admin.member.index')->withToastSuccess("$request->name ditambahkan sebagai member");
     }
+
+    public function show(User $member)
+    {
+        return view('admin.member.show', [
+            'user' => $member
+        ]);
+    }
 }
