@@ -33,3 +33,6 @@ Route::delete('/book-code/{code}', [BookController::class, 'bookCodeDestroy'])->
 Route::get('/member/verifikasi', [MemberController::class, 'verifIndex'])->name('member.verif.index');
 Route::get('/member/verifikasi/{user}', [MemberController::class, 'verifShow'])->name('member.verif.show');
 Route::put('/member/verifikasi/{user}', [MemberController::class, 'verifUpdate'])->name('member.verif.update');
+
+
+Route::resource('/member', MemberController::class);

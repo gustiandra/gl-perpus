@@ -51,7 +51,17 @@ Breadcrumbs::for('admin.member.verif.show', function ($trail, $user) {
     $trail->push('Verifikasi Member', route('admin.member.verif.index'));
     $trail->push($user->name, route('admin.member.verif.show', $user));
 });
-
+Breadcrumbs::for('admin.member.index', function ($trail) {
+    $trail->push('Member', route('admin.member.index'));
+});
+Breadcrumbs::for('admin.member.create', function ($trail) {
+    $trail->push('Member', route('admin.member.index'));
+    $trail->push('Tambah Member', route('admin.member.create'));
+});
+Breadcrumbs::for('admin.member.edit', function ($trail, $user) {
+    $trail->push('Member', route('admin.member.index'));
+    $trail->push('Ubah Member', route('admin.member.edit', $user));
+});
 
 // ======================================== Member =======================================
 

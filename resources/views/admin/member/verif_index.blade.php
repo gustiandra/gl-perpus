@@ -17,22 +17,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($members as $row)        
-                        @if ($row->user->hasRole('member'))                            
-                            <tr>
-                                <td class="text-center"><img src="{{ Storage::url('/assets/profil/'.$row->photo) }}"
-                                    alt="" height="60"></td>
-                                    <td class="text-center">{{ $row->user->name }}</td>
-                                    <td class="text-center">{{ $row->user->email }}</td>
-                                    <td class="text-center">{{ $row->no_hp }}</td>
-                                    <td class="text-center"> <span class="@if($row->status == 'DITOLAK') {{ 'badge bg-danger' }} @else {{ 'badge bg-success' }} @endif">{{ ucfirst(strtolower($row->status)) }}</span></td>
-                                    <td class="text-center">
-                                        <a href="{{ route('admin.member.verif.show', $row->user_id) }}" class="btn btn-primary btn-sm">
-                                            <i class="fas fa-check"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                            @endif                
+                    @foreach ($members as $row)                                
+                        <tr>
+                            <td class="text-center"><img src="{{ Storage::url('/assets/profil/'.$row->photo) }}"
+                                alt="" height="60"></td>
+                            <td class="text-center">{{ $row->user->name }}</td>
+                            <td class="text-center">{{ $row->user->email }}</td>
+                            <td class="text-center">{{ $row->no_hp }}</td>
+                            <td class="text-center"> <span class="@if($row->status == 'DITOLAK') {{ 'badge bg-danger' }} @else {{ 'badge bg-success' }} @endif">{{ ucfirst(strtolower($row->status)) }}</span></td>
+                            <td class="text-center">
+                                <a href="{{ route('admin.member.verif.show', $row->user->slug) }}" class="btn btn-primary btn-sm">
+                                    <i class="fas fa-check"></i>
+                                </a>
+                            </td>
+                        </tr>                            
                     @endforeach
                 </tbody>
             </table>

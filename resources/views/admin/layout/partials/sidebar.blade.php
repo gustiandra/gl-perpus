@@ -53,7 +53,7 @@
                                     <a href="{{ route('admin.member.verif.index') }}">Verifikasi Member</a>
                                 </li>
                                 <li class="submenu-item @if ($active == 'member') {{ 'active' }} @endif">
-                                    <a href="anggota.html">Member</a>
+                                    <a href="{{ route('admin.member.index') }}">Member</a>
                                 </li>
                                 <li class="submenu-item @if ($active == 'blok') {{ 'active' }} @endif">
                                     <a href="anggota-diblokir.html">Member Diblokir</a>
