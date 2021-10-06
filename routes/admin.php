@@ -36,5 +36,6 @@ Route::put('/member/verifikasi/{user}', [MemberController::class, 'verifUpdate']
 
 
 Route::resource('/member', MemberController::class);
-// Route::delete('/member{user}', [MemberController::class, 'destroy'])->name('member.destroy');
 Route::put('/member/change-status/{member}', [MemberController::class, 'changeStatus'])->name('member.change-status');
+Route::get('/member-blocked', [MemberController::class, 'blockedMember'])->name('member.blocked.index');
+Route::put('/member-blocked/{member}', [MemberController::class, 'unBlockMember'])->name('member.unblock');

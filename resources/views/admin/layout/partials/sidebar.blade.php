@@ -56,7 +56,7 @@
                                     <a href="{{ route('admin.member.index') }}">Member</a>
                                 </li>
                                 <li class="submenu-item @if ($active == 'blok') {{ 'active' }} @endif">
-                                    <a href="anggota-diblokir.html">Member Diblokir</a>
+                                    <a href="{{ route('admin.member.blocked.index') }}">Member Diblokir</a>
                                 </li>
                             </ul>
                         </li>

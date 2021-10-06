@@ -154,4 +154,27 @@ class MemberController extends Controller
         $user->delete();
         return redirect()->route('admin.member.index')->withToastSuccess("Member $name dihapus");
     }
+
+    public function blockedMember()
+    {
+        $members = Member::with('user')->where('status', 'DIBLOKIR')->latest()->get();
+        return view('admin.member.blocked_index', [
+            'members' => $members
+        ]);
+    }
+
+    public function unBlockMember(Member $member, Request $request)
+    {
+        $this->validate($request, [
+            'status' => 'required'
+        ]);
+
+        $member->update([
+            'status' => $request->status,
+            'description' => null
+        ]);
+
+        $name = $member->user->name;
+        return redirect()->route('admin.member.blocked.index')->withToastSuccess("Member $name diaktifkan kembali");
+    }
 }

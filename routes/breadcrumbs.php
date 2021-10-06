@@ -66,6 +66,9 @@ Breadcrumbs::for('admin.member.show', function ($trail, $member) {
     $trail->push('Member', route('admin.member.index'));
     $trail->push('Ubah Member', route('admin.member.show', $member));
 });
+Breadcrumbs::for('admin.member.blocked.index', function ($trail) {
+    $trail->push('Member Diblokir', route('admin.member.blocked.index'));
+});
 
 // ======================================== Member =======================================
 

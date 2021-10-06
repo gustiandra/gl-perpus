@@ -1,4 +1,4 @@
-@extends('admin.layout.app', ['title' => 'Member', 'active' => 'verif', 'subtitle' => 'Verifikasi member'])
+@extends('admin.layout.app', ['title' => "Verifikasi Member - $user->name", 'active' => 'verif', 'subtitle' => 'Verifikasi member'])
 @section('content')
     <div class="card">
         <div class="card-header">
