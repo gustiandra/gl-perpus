@@ -81,7 +81,7 @@
                                                     4.9 <span class="icofont-star"></span> | 20 Terpinjam
                                                 </p>
                                             </div>
-                                            <a href="" class="btn btn-primary btn-sm">Selengkapnya</a>
+                                            <a href="{{ route('book.show', $row->slug) }}" class="btn btn-primary btn-sm">Selengkapnya</a>
                                         </div>
                                     </div>
                                 </div>
