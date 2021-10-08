@@ -53,35 +53,41 @@
                     </div>
                 </div>
                 <div class="row book">
-                    <div class="col-6" data-aos="fade-up" data-aos-delay="100">
-                        <div class="card mb-3" style="max-width: 540px;">
-                            <div class="row no-gutters">
-                                <div class="col-md-4">
-                                    <img src="{{ Storage::url('/assets/book-cover/Yuk Mari Sekolah.jpg') }}" class="card-img" alt="...">
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card-body">
-                                        <h6 class="card-title">Book of Alice</h6>
-                                        <p class="card-subtitle">Gustiandra Lesmana | PT. WIB | 2021</p>
-                                        <p class="card-text ">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                            Nulla voluptates ipsam quidem ratione. Quo, ipsum recusandae corporis
-                                            molestias aut</p>
-                                        <p class="card-text category">Kategori : Horor, Scifi
-                                        </p>
-                                        </p>
-                                        <p class="card-text">Tersedia : <span class="text-danger">0 (Dalam
-                                                Peminjaman)</span></p>
-                                        <div class="review">
-                                            <p class="stars font-stars">
-                                                4.9 <span class="icofont-star"></span> | 20 Terpinjam
+                    @foreach ($books as $row)                                            
+                        <div class="col-6" data-aos="fade-up" data-aos-delay="100">
+                            <div class="card mb-3" style="max-width: 540px;">
+                                <div class="row no-gutters">
+                                    <div class="col-md-4">
+                                        <img src="{{ Storage::url('/assets/book-cover/'. $row->cover) }}" class="card-img" alt="...">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <h6 class="card-title">{{ $row->title }}</h6>
+                                            <p class="card-subtitle">{{ $row->author }} | {{ $row->publisher }} | {{ date_format($row->publish_at, 'Y') }}</p>
+                                            <p class="card-text ">{{ substr($row->description, 0, 98) }}....</p>
+                                            <p class="card-text category">Kategori : 
+                                            @foreach ($row->bookCategory as $item)
+                                                {{ $item->category->name}}
+                                                @if (!$loop->last)
+                                                    {{'|' }}                                                
+                                                @endif
+                                            @endforeach
                                             </p>
+                                            </p>
+                                            <p class="card-text">Tersedia : <span class="text-danger">0 (Dalam
+                                                    Peminjaman)</span></p>
+                                            <div class="review">
+                                                <p class="stars font-stars">
+                                                    4.9 <span class="icofont-star"></span> | 20 Terpinjam
+                                                </p>
+                                            </div>
+                                            <a href="" class="btn btn-primary btn-sm">Selengkapnya</a>
                                         </div>
-                                        <a href="" class="btn btn-primary btn-sm">Selengkapnya</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @endforeach
                     <div class="col-12 text-center mt-4" data-aos="fade-up" data-aos-delay="100">
                         <a href="#" class="btn btn-warning btn-sm">Lihat Semua</a>
                     </div>

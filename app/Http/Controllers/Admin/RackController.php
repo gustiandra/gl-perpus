@@ -17,7 +17,7 @@ class RackController extends Controller
     public function index()
     {
         return view('admin.rack.index', [
-            'racks' => Rack::latest()->get()
+            'racks' => Rack::orderBy('name')->get()
         ]);
     }
 

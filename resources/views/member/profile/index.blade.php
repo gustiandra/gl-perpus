@@ -7,6 +7,15 @@
                     Akun Anda dalam proses verifikasi. Proses ini membutuhkan waktu maks 3X24 Jam
                 </div>
             @endif
+            @if($user->email_verified_at == null) 
+                <div class="alert alert-dark" role="alert">
+                    Email Anda belum diverifikasi.
+                    <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
+                    @csrf
+                    <button type="submit" class="btn btn-link p-0 m-0 align-baseline text-white">{{ __('Klik untuk mengirim e-mail verifikasi') }}</button>.
+                </form>
+                </div>
+            @endif
             <div class="card">                
                 <div class="card-body">
                     <form action="{{ route('member.profile.update') }}" id="uploadPhoto" method="POST" enctype="multipart/form-data">
@@ -77,7 +86,7 @@
                                 </div>
                             </div>
                             <div class="row" style="margin-top: -10px;">
-                                <div class="col-md-6">
+                                <div class="col-md-6"  style="@if($user->member->status == 'AKTIF') {{ 'display:none' }} @endif">
                                     <img :src="previewPhotoId" alt="" width="200"><br>
                                     <label id="photoId">Foto Kartu Identitasi<sub><i
                                                 class="text-muted">*KTP/Kartu
@@ -109,9 +118,9 @@
                                     </div>
                                 </div>
                             </div>
-                                                           
+
                             <div class="col-12 text-end">
-                                <button type="submit" class="btn btn-primary" @if($user->member->status == "MENUNGGU") {{ 'disabled' }} @endif>Simpan</button>
+                                <button type="submit" class="btn btn-primary" @if($user->member->status == "MENUNGGU" || $user->email_verified_at == null) {{ 'disabled' }} @endif>Simpan</button>
                             </div>                            
                         </div>
                     </form>

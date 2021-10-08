@@ -17,10 +17,9 @@ class CategoryController extends Controller
     public function index()
     {
         return view('admin.category.index', [
-            'categories' => Category::latest()->get()
+            'categories' => Category::orderBy('name')->get()
         ]);
     }
-
     /**
      * Show the form for creating a new resource.
      *

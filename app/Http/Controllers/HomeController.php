@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -22,6 +23,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('member.home');
+        $books = Book::latest()->get();
+        return view('member.home', [
+            'books' => $books
+        ]);
     }
 }
