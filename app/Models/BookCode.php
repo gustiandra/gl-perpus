@@ -11,4 +11,9 @@ class BookCode extends Model
     use HasFactory, SoftDeletes;
 
     protected $guarded = [];
+
+    public function borrowed()
+    {
+        return $this->hasOne(Borrowing::class);
+    }
 }

@@ -1,4 +1,4 @@
-@extends('member.layouts.app', ['title' => 'Beranda'])
+@extends('member.layouts.app', ['title' => $book->title])
 
 @section('content')
    <!-- ======= Blog Section ======= -->
@@ -35,6 +35,13 @@
     <section class="site-section mb-4">
         <div class="container">
             <div class="row">
+                <div class="col-12">
+                    @if (session('success'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('success'); }}
+                        </div>                    
+                    @endif
+                </div>
                 <div class="col-md-8 blog-content">
                     <div class="row">
                         <div class="col-md-6">
@@ -55,12 +62,18 @@
                                                     @endif
                                                 </a>
                                             @endforeach</p>
-                            <p>Tersedia : {{ count($book->bookCode) }} Buku</p>
+                            <p>Tersedia : {{ $qty_books }} Buku</p>
                             <p>Rak : {{ $book->rack->name }} </p>
                             <p>
                                 4.9 <span class="icofont-star star-on-book"></span> | 20 Terpinjam
                             </p>
-                            <button class="btn btn-warning btn-sm">PINJAM BUKU</button>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary btn-sm" @if ($is_borrowed)
+                                {{ 'disabled' }}
+                            @endif data-toggle="modal" data-target="#borrow">
+                            PINJAM BUKU
+                            </button>
+                            <!-- Modal -->                            
                         </div>
                     </div>
                     <p>Deskripsi :</p>
@@ -74,7 +87,7 @@
                             <div class="form-group">
                                 <span class="icon fa fa-search"></span>
                                 <input type="text" class="form-control"
-                                    placeholder="Masukan : Judul, Penulis, atau Penerbit">
+                                    placeholder="Masukan : Judul/Penulis/Penerbit">
                             </div>
                         </form>
                     </div>                    
@@ -240,4 +253,32 @@
                 </div>
             </div>
         </section>
+        <div class="modal" id="borrow" tabindex="-1" aria-labelledby="borrowLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Pinjam Buku - {{ $book->title }}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{ route('member.book.borrow', $book) }}" method="POST">
+                            @csrf      
+                            <select class="custom-select" name="book_code_id">
+                                @foreach ($book_codes as $book_code)
+                                    @if (!$book_code->borrowed)
+                                        <option value="{{ $book_code->id }}">{{ $book_code->code }}</option>
+                                    @endif
+                                @endforeach
+                            </select>                                                                                            
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Batal</button>                                    
+                            <button type="submit" class="btn btn-primary btn-sm">Oke</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>                            
 @endsection

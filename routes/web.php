@@ -35,5 +35,8 @@ Route::name('member.')
             // Profil
             Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
             Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
+            // Pinjam Buku
+            Route::post('/borrow/{book}', [BookController::class, 'borrow'])->name('book.borrow');
         }
     );
