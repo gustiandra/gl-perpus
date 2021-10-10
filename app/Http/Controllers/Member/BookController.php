@@ -16,42 +16,26 @@ class BookController extends Controller
 {
     public function show(Book $book)
     {
-        $book->load('bookCategory', 'bookCode');
-
-
-        // Book Rekomendasi
-        $count['total'] = 0;
-        foreach ($book->bookCategory as $item) {
-            $cek = BookCategory::where('category_id', $item->category_id)->get();
-            if (count($cek) > $count['total']) {
-                $count['id'] = $item->category_id;
-                $count['total'] = count($cek);
-            }
-        }
-
-        $books = BookCategory::with('book')->where('category_id', $count['id'])->where('book_id', '<>', $book->id)->get();
-
-
-        // Rekomendasi Kategori
-        $categories = Category::with('book')->inRandomOrder()->limit(15)->get();
+        $book->load(['bookCategory' => function ($query) {
+            return $query->with('category');
+        }], 'bookCode');
+        // $books = BookCategory::with(['book' => function ($query) {
+        //     return $query->with('category');
+        // }])->where('category_id', $book->bookCategory[0]->category_id)->where('book_id', '<>', $book->id)->get();
 
         // Book Code
-        $book_codes = BookCode::with('borrowed')->where('book_id', $book->id)->get();
+        $book_codes = BookCode::with('borrowed')->where('book_id', $book->id)->where('on_loan', 0)->get();
 
-        // Total buku tersedia
-        $qty_books = 0;
-        foreach ($book_codes as $code) {
-            if (!$code->borrowed) {
-                $qty_books++;
-            }
-        }
+        // Book Rekomendasi        
+        $books = BookCategory::with('book')->where('category_id', $book->bookCategory[0]->category_id)->where('book_id', '<>', $book->id)->get();
 
-        foreach ($book_codes as $code) {
-            $id[] = $code->id;
-        }
+        // Rekomendasi Kategori
+        $categories = Category::with('book')->withCount('book')->orderBy('book_count', 'desc')->get();
 
-        if (isset(Auth::user()->id)) {
-            $is_borrowed = (bool) Borrowing::where('user_id', Auth::user()->id)->where('book_code_id', $id)->first();
+
+        $book_code_borrowed = BookCode::with('borrowed')->where('book_id', $book->id)->where('on_loan', 1)->first();
+        if (isset(Auth::user()->id) && $book_code_borrowed != null) {
+            $is_borrowed = (bool) Borrowing::where('user_id', Auth::user()->id)->where('book_code_id', $book_code_borrowed->id)->first();
         } else {
             $is_borrowed = false;
         }
@@ -62,7 +46,6 @@ class BookController extends Controller
             'categories' => $categories,
             'book_codes' => $book_codes,
             'is_borrowed' => $is_borrowed,
-            'qty_books' => $qty_books,
         ]);
     }
 
@@ -75,6 +58,10 @@ class BookController extends Controller
         Borrowing::create([
             'user_id' => Auth::user()->id,
             'book_code_id' => $request->book_code_id,
+        ]);
+
+        BookCode::where('id', $request->book_code_id)->update([
+            'on_loan' => 1
         ]);
 
         return redirect()->route('book.show', $book->slug)->with('success', 'Silahkan bawa buku dan mendatangi petugas di lobby untuk konfirmasi peminjaman. Terimakasih');

@@ -9,13 +9,16 @@
     @guest
 
     @else    
-        @if (Auth::user()->member->status != "AKTIF")        
-        <div class="text-center bg-dark text-white p-3">
-            <span>Belum bisa melakukan peminjaman, karena Anda belum melengkapi profil atau akun belum diverifikasi. </span> <a href="{{ route('member.profile') }}" class="text-white"><u>Lengkapi profil di sini !</u></a>
-        </div>    
-    @endguest
-    
-    @endif
+        @if (Auth::user()->hasRole('member'))
+            
+            @if (Auth::user()->member->status != "AKTIF")        
+            <div class="text-center bg-dark text-white p-3">
+                <span>Belum bisa melakukan peminjaman, karena Anda belum melengkapi profil atau akun belum diverifikasi. </span> <a href="{{ route('member.profile') }}" class="text-white"><u>Lengkapi profil di sini !</u></a>
+            </div>    
+            @endif
+        
+        @endif
+        @endguest
     @include('member.layouts.partials.header')
 
     @yield('content')

@@ -62,7 +62,7 @@
                                                     @endif
                                                 </a>
                                             @endforeach</p>
-                            <p>Tersedia : {{ $qty_books }} Buku</p>
+                            <p>Tersedia : {{ count($book_codes) }} Buku</p>
                             <p>Rak : {{ $book->rack->name }} </p>
                             <p>
                                 4.9 <span class="icofont-star star-on-book"></span> | 20 Terpinjam
@@ -266,10 +266,8 @@
                             <form action="{{ route('member.book.borrow', $book) }}" method="POST">
                             @csrf      
                             <select class="custom-select" name="book_code_id">
-                                @foreach ($book_codes as $book_code)
-                                    @if (!$book_code->borrowed)
-                                        <option value="{{ $book_code->id }}">{{ $book_code->code }}</option>
-                                    @endif
+                                @foreach ($book_codes as $book_code)                                    
+                                        <option value="{{ $book_code->id }}">{{ $book_code->code }}</option>                                    
                                 @endforeach
                             </select>                                                                                            
                         </div>

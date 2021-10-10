@@ -19,6 +19,7 @@ class CreateBookCodesTable extends Migration
             $table->string('code');
             $table->string('condition')->default('BAIK');
             $table->string('description')->nullable();
+            $table->boolean('on_loan')->default(0);
             $table->softDeletes();
 
             $table->foreign('book_id')->references('id')->on('books')
