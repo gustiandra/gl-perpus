@@ -16,4 +16,9 @@ class BookCode extends Model
     {
         return $this->hasOne(Borrowing::class);
     }
+
+    public function book()
+    {
+        return $this->belongsTo(Book::class);
+    }
 }

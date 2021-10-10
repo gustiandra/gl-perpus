@@ -12,4 +12,14 @@ class Borrowing extends Model
     protected $casts = [
         'return_at' => 'datetime',
     ];
+
+    public function book_code()
+    {
+        return $this->belongsTo(BookCode::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

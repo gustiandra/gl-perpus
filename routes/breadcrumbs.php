@@ -36,13 +36,6 @@ Breadcrumbs::for('admin.book.show', function ($trail, $book) {
     $trail->push($book->title, route('admin.book.show', $book));
 });
 
-// Author Edit
-// Breadcrumbs::for('admin.author.edit', function ($trail, $author) {
-//     $trail->push('Beranda', route('admin.dashboard'));
-//     $trail->push('Penulis', route('admin.author.index'));
-//     $trail->push('Ubah Data Penulis', route('admin.author.edit', $author));
-// });
-
 // Member
 Breadcrumbs::for('admin.member.verif.index', function ($trail) {
     $trail->push('Verifikasi Member', route('admin.member.verif.index'));
@@ -69,6 +62,20 @@ Breadcrumbs::for('admin.member.show', function ($trail, $member) {
 Breadcrumbs::for('admin.member.blocked.index', function ($trail) {
     $trail->push('Member Diblokir', route('admin.member.blocked.index'));
 });
+
+
+
+// Borrow
+Breadcrumbs::for('admin.borrow.verif.index', function ($trail) {
+    $trail->push('Verifikasi Peminjaman', route('admin.borrow.verif.index'));
+});
+
+
+
+
+
+
+
 
 // ======================================== Member =======================================
 

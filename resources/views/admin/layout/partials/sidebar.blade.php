@@ -61,14 +61,14 @@
                             </ul>
                         </li>
 
-                        <li class="sidebar-item has-sub">
+                        <li class="sidebar-item has-sub @if ($active == 'verif_borrow' || $active == 'borrow' || $active == 'past') {{ 'active' }} @endif">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-journals"></i>
                                 <span>Peminjaman Buku</span>
                             </a>
-                            <ul class="submenu">
-                                <li class="submenu-item">
-                                    <a href="verifikasi-peminjaman.html">Verifikasi Peminjaman</a>
+                            <ul class="submenu @if ($active == 'verif_borrow' || $active == 'borrow' || $active == 'past') {{ 'active' }} @endif">
+                                <li class="submenu-item @if ($active == 'verif_borrow') {{ 'active' }} @endif">
+                                    <a href="{{ route('admin.borrow.verif.index') }}">Verifikasi Peminjaman</a>
                                 </li>
                                 <li class="submenu-item ">
                                     <a href="buku-dipinjam.html">Buku Sedang Dipinjam</a>

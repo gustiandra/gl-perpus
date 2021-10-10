@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\BookController;
+use App\Http\Controllers\Admin\BorrowController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\MemberController;
@@ -39,3 +40,8 @@ Route::resource('/member', MemberController::class);
 Route::put('/member/change-status/{member}', [MemberController::class, 'changeStatus'])->name('member.change-status');
 Route::get('/member-blocked', [MemberController::class, 'blockedMember'])->name('member.blocked.index');
 Route::put('/member-blocked/{member}', [MemberController::class, 'unBlockMember'])->name('member.unblock');
+
+
+// Borrow
+Route::get('/borrow-verification', [BorrowController::class, 'verifIndex'])->name('borrow.verif.index');
+Route::put('/borrow-verification/{borrow}', [BorrowController::class, 'verifUpdate'])->name('borrow.verif.update');
