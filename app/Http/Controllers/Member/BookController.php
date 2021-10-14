@@ -19,9 +19,7 @@ class BookController extends Controller
         $book->load(['bookCategory' => function ($query) {
             return $query->with('category');
         }], 'bookCode');
-        // $books = BookCategory::with(['book' => function ($query) {
-        //     return $query->with('category');
-        // }])->where('category_id', $book->bookCategory[0]->category_id)->where('book_id', '<>', $book->id)->get();
+
 
         // Book Code
         $book_codes = BookCode::with('borrowed')->where('book_id', $book->id)->where('on_loan', 0)->get();
@@ -40,6 +38,11 @@ class BookController extends Controller
             $is_borrowed = false;
         }
 
+        $total_borrow_user = Borrowing::where('user_id', Auth::user()->id)->where('return_at', null)->where('confirmed', 1)->get();
+        if (count($total_borrow_user) > 1) {
+            $is_borrowed = true;
+        }
+
         return view('member.book.show', [
             'book' => $book,
             'books' => $books,
@@ -54,6 +57,7 @@ class BookController extends Controller
         $this->validate($request, [
             'book_code_id' => 'required'
         ]);
+
 
         Borrowing::create([
             'user_id' => Auth::user()->id,

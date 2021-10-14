@@ -70,8 +70,8 @@
                                 <li class="submenu-item @if ($active == 'verif_borrow') {{ 'active' }} @endif">
                                     <a href="{{ route('admin.borrow.verif.index') }}">Verifikasi Peminjaman</a>
                                 </li>
-                                <li class="submenu-item ">
-                                    <a href="buku-dipinjam.html">Buku Sedang Dipinjam</a>
+                                <li class="submenu-item @if ($active == 'borrow') {{ 'active' }} @endif">
+                                    <a href="{{ route('admin.borrow.index') }}">Buku Sedang Dipinjam</a>
                                 </li>
                                 <li class="submenu-item ">
                                     <a href="lewat-batas-peminjaman.html">Lewat Batas Peminjaman</a>

@@ -69,6 +69,9 @@ Breadcrumbs::for('admin.member.blocked.index', function ($trail) {
 Breadcrumbs::for('admin.borrow.verif.index', function ($trail) {
     $trail->push('Verifikasi Peminjaman', route('admin.borrow.verif.index'));
 });
+Breadcrumbs::for('admin.borrow.index', function ($trail) {
+    $trail->push('Buku Dipinjam', route('admin.borrow.index'));
+});
 
 
 

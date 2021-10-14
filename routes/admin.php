@@ -45,3 +45,5 @@ Route::put('/member-blocked/{member}', [MemberController::class, 'unBlockMember'
 // Borrow
 Route::get('/borrow-verification', [BorrowController::class, 'verifIndex'])->name('borrow.verif.index');
 Route::put('/borrow-verification/{borrow}', [BorrowController::class, 'verifUpdate'])->name('borrow.verif.update');
+Route::get('/borrowed-books', [BorrowController::class, 'index'])->name('borrow.index');
+Route::put('/returning-books/{borrow}', [BorrowController::class, 'returning_book'])->name('borrow.return');

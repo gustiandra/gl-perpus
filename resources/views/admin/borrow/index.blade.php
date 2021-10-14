@@ -1,61 +1,48 @@
-@extends('admin.layout.app', ['title' => 'Buku', 'active' => 'book'])
+@extends('admin.layout.app', ['title' => 'Buku Dipinjam', 'active' => 'borrow', 'subtitle' => 'Peminjaman yang melewati batas waktu dipindahkan ke menu "Lewat Batas Peminjaman"'])
 @section('content')
-    <div class="card">
-        <div class="card-header">
-            Data Buku
-        </div>
-        <div class="card-body">
-            <!-- Button trigger for tambah buku -->
-            <a href="{{ route('admin.book.create') }}" class="btn btn-primary btn-sm mb-3">
-                <i class="fas fa-plus"></i> Tambah Buku
-            </a>
-            <table class="table table-striped table-responsive" id="table1">
-                <thead>
-                    <tr>
-                        <th class="text-center">Judul</th>
-                        <th class="text-center">Cover</th>
-                        <th class="text-center">Kategori</th>
-                        <th class="text-center">Rak</th>
-                        <th class="text-center">Jumlah</th>
-                        <th class="text-center">#</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($books as $item)
+    <section class="section">
+        <div class="card">
+            <div class="card-header">
+                Buku Dipinjam
+            </div>
+            <div class="card-body">
+                <table class="table table-striped table-responsive" id="table1">
+                    <thead>
                         <tr>
-                            <td class="text-center">{{ $item->title }}</td>
-                            <td class="text-center"><img src="{{ Storage::url('/assets/book-cover/'.$item->cover) }}" height="80"
-                                    alt=""></td>
-                            <td class="text-center">
-                                @foreach ( $item->bookCategory  as $row)
-                                    <span class="">{{ $row->category->name }}</span><br>
-                                @endforeach
-                            </td>
-                            <td class="text-center">{{ $item->rack->name }}</td>
-                            <td class="text-center">{{ count($item->bookcode) }}</td>
-                            <td class="text-center">
-                                <a href="{{ route('admin.book.show', $item->slug) }}" class="btn btn-warning btn-sm">
-                                    <i class="fas fa-eye" title="Detail Buku"></i>
-                                </a>
-                                <a href="{{ route('admin.book.edit', $item->slug) }}" class="btn btn-primary btn-sm">
-                                    <i class="fas fa-pen"></i>
-                                </a>
-                                <a href="#" data-bs-toggle="tooltip" data-bs-placement="top"
-                                    onclick="deleteConfirm('deleteConfirm{{ $item->slug }}', '{{ $item->title }}')"
-                                    class="btn btn-sm btn-danger" title="Hapus Buku">
-                                    <i class=" fas fa-trash-alt"></i>
-                                </a>
-                                <form action="{{ route('admin.book.destroy', $item->slug) }}" method="POST" id="deleteConfirm{{ $item->slug }}">
-                                    @csrf
-                                    @method('delete')
-                                </form>
-                            </td>
-                        </tr>                   
-                    @endforeach
-                </tbody>
-            </table>
+                            <th class="text-center">Nama</th>
+                            <th class="text-center">Judul</th>
+                            <th class="text-center">Kode</th>
+                            <th class="text-center">Peminjaman</th>
+                            <th class="text-center">Pengembalian</th>
+                            <th class="text-center">#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($loan_data as $item)                                                    
+                            <tr>
+                                <td class="text-center">{{ $item->user->name }}</td>
+                                <td class="text-center">{{ $item->book_code->book->title }}</td>
+                                <td class="text-center">{{ $item->book_code->code }}</td>
+                                <td class="text-center">{{ $item->created_at }}</td>
+                                <td class="text-center">{{ $item->date_of_return }}</td>                                
+                                <td class="text-center">
+                                    <a href="#"
+                                        onclick="returnConfirm('form{{ $item->id }}', '{{ $item->book_code->book->title }}', '{{ $item->user->name }}', '{{ $item->book_code->code }}')"
+                                        class="btn btn-sm btn-primary">
+                                        Pengembalian Buku
+                                    </a>
+                                    <form action="{{  route('admin.borrow.return', $item->id)  }}}}" method="POST" id="form{{ $item->id }}">
+                                        @csrf
+                                        @method('put')
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
+    </section>
 @endsection
 
 @push('addon-style')
@@ -66,13 +53,19 @@
     <script src="{{ asset('dist/assets/vendors/simple-datatables/simple-datatables.js')}}"></script>
     <script src="{{ asset('dist/assets/vendors/sweetalert2/sweetalert2.all.min.js')}}"></script>
     <script>
-       window.deleteConfirm = function (formId, name) {
+        window.returnConfirm = function (formId, title, name, kode, denda) {
             Swal.fire({
                 icon: 'question',
-                html: `Hapus Data Buku <b>${name}</b>?`,
+                titleText: 'Pengembalian Buku ?',
+                text: ``,
+                html: `Pastikan semua data benar!<br>
+                    Anggota: <b>${name}</b><br>
+                    Judul: <b>${title}</b><br>
+                    Kode: <b>${kode}</b><br>                    
+                    `,
                 showCancelButton: true,
-                confirmButtonText: 'Hapus',
-                confirmButtonColor: '#e3342f',
+                confirmButtonText: 'Ya, data sudah benar',
+                confirmButtonColor: '#435ebe',
             }).then((result) => {
                 if (result.isConfirmed) {
                     document.getElementById(formId).submit();

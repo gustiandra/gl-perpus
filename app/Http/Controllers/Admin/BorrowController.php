@@ -22,14 +22,35 @@ class BorrowController extends Controller
 
     public function verifUpdate(Borrowing $borrow)
     {
-        $return_at = now();
-        date_add($return_at, date_interval_create_from_date_string('4 weeks'));
+        $date_of_return = now();
+        date_add($date_of_return, date_interval_create_from_date_string('4 weeks'));
 
         $borrow->update([
             'admin_id' => Auth::user()->id,
-            'return_at' => $return_at,
+            'date_of_return' => $date_of_return,
             'confirmed' => 1
         ]);
+
         return redirect()->route('admin.borrow.verif.index')->withToastSuccess("Berhasil memverifikasi");
+    }
+
+    public function index()
+    {
+        $loan_data = Borrowing::where('return_at', null)->where('confirmed', 1)->with(['book_code' => function ($query) {
+            return $query->with('book');
+        }])->get();
+
+        return view('admin.borrow.index', [
+            'loan_data' => $loan_data
+        ]);
+    }
+
+    public function returning_book(Borrowing $borrow)
+    {
+        $borrow->update([
+            'return_at' => now(),
+        ]);
+
+        return redirect()->route('admin.borrow.index')->withToastSuccess("Buku Telah Dikembalikan!");
     }
 }

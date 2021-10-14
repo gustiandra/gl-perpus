@@ -18,8 +18,9 @@ class CreateBorrowingsTable extends Migration
             $table->integer('book_code_id');
             $table->integer('user_id');
             $table->integer('admin_id')->nullable();
-            $table->dateTime('return_at')->nullable();
+            $table->dateTime('date_of_return')->nullable();
             $table->boolean('confirmed')->default(0);
+            $table->dateTime('return_at')->nullable();
             $table->timestamps();
         });
     }
