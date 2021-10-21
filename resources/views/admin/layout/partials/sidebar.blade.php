@@ -73,8 +73,8 @@
                                 <li class="submenu-item @if ($active == 'borrow') {{ 'active' }} @endif">
                                     <a href="{{ route('admin.borrow.index') }}">Buku Sedang Dipinjam</a>
                                 </li>
-                                <li class="submenu-item ">
-                                    <a href="lewat-batas-peminjaman.html">Lewat Batas Peminjaman</a>
+                                <li class="submenu-item @if ($active == 'past') {{ 'active' }} @endif">
+                                    <a href="{{ route('admin.borrow.past') }}">Lewat Batas Peminjaman</a>
                                 </li>
                             </ul>
                         </li>

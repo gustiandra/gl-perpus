@@ -53,4 +53,21 @@ class BorrowController extends Controller
 
         return redirect()->route('admin.borrow.index')->withToastSuccess("Buku Telah Dikembalikan!");
     }
+
+    public function past()
+    {
+        $loan_data = Borrowing::with('book_code.book', 'user')->where('return_at', null)->where('confirmed', 1)->get();
+        foreach ($loan_data as $item) {
+            if ($item->date_of_return < now()) {
+                $past_data[] = $item;
+                $denda[] = date_diff($item->date_of_return, now())->d + 1;
+            }
+        }
+
+        // dd($denda[0]);
+        return view('admin.borrow.lewat_index', [
+            'past_data' => $past_data,
+            'denda' => $denda,
+        ]);
+    }
 }

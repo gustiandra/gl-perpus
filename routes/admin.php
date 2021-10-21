@@ -47,3 +47,4 @@ Route::get('/borrow-verification', [BorrowController::class, 'verifIndex'])->nam
 Route::put('/borrow-verification/{borrow}', [BorrowController::class, 'verifUpdate'])->name('borrow.verif.update');
 Route::get('/borrowed-books', [BorrowController::class, 'index'])->name('borrow.index');
 Route::put('/returning-books/{borrow}', [BorrowController::class, 'returning_book'])->name('borrow.return');
+Route::get('/past-the-loan-limit', [BorrowController::class, 'past'])->name('borrow.past');

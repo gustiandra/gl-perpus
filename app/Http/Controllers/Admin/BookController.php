@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Book;
 use App\Models\BookCategory;
 use App\Models\BookCode;
+use App\Models\Borrowing;
 use App\Models\Category;
 use App\Models\Rack;
 use Illuminate\Http\Request;

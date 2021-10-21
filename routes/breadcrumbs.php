@@ -72,6 +72,9 @@ Breadcrumbs::for('admin.borrow.verif.index', function ($trail) {
 Breadcrumbs::for('admin.borrow.index', function ($trail) {
     $trail->push('Buku Dipinjam', route('admin.borrow.index'));
 });
+Breadcrumbs::for('admin.borrow.past', function ($trail) {
+    $trail->push('Lewat Batas Peminjaman', route('admin.borrow.past'));
+});
 
 
 

@@ -11,6 +11,7 @@ class Borrowing extends Model
     protected $guarded = [];
     protected $casts = [
         'return_at' => 'datetime',
+        'date_of_return' => 'datetime',
     ];
 
     public function book_code()
