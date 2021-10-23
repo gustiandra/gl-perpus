@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Borrowing;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,9 +24,24 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $books = Book::latest()->get();
+        $books = Book::with('bookCode.borrowed', 'bookCategory')->latest()->get();
+        foreach ($books as $book) {
+            $id = 0;
+            foreach ($book->bookCode as $item) {
+                $code[$book->id][] = $item->id;
+
+                foreach ($item->borrowed as $borrow) {
+                    if ($borrow->book_code_id == $code[$book->id][$id]) {
+                        $borrows[$book->id][] = $item->borrowed;
+                    }
+                }
+                $id += 1;
+            }
+        }
+
         return view('member.home', [
-            'books' => $books
+            'books' => $books,
+            'borrows' => $borrows
         ]);
     }
 }

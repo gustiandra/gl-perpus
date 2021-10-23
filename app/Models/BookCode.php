@@ -14,7 +14,7 @@ class BookCode extends Model
 
     public function borrowed()
     {
-        return $this->hasOne(Borrowing::class);
+        return $this->hasMany(Borrowing::class);
     }
 
     public function book()

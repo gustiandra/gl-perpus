@@ -78,7 +78,13 @@
                                                     Peminjaman)</span></p>
                                             <div class="review">
                                                 <p class="stars font-stars">
-                                                    4.9 <span class="icofont-star"></span> | 20 Terpinjam
+                                                    4.9 <span class="icofont-star"></span> | 
+                                                        @if (empty($borrows[$row->id] ))
+                                                            {{ '0' }}                                                    
+                                                            @else
+                                                            {{ count($borrows[$row->id]) }}
+                                                        @endif 
+                                                    Terpinjam
                                                 </p>
                                             </div>
                                             <a href="{{ route('book.show', $row->slug) }}" class="btn btn-primary btn-sm">Selengkapnya</a>
