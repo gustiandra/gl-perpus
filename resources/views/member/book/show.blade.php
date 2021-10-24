@@ -68,7 +68,7 @@
                                 4.9 <span class="icofont-star star-on-book"></span> | 20 Terpinjam
                             </p>
                             <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-primary btn-sm" @if ($is_borrowed)
+                            <button type="button" class="btn btn-primary btn-sm" @if ($is_borrowed || count($book_codes) == 0)
                                 {{ 'disabled' }}
                             @endif data-toggle="modal" data-target="#borrow">
                             PINJAM BUKU

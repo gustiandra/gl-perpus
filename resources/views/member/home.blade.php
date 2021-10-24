@@ -74,8 +74,12 @@
                                             @endforeach
                                             </p>
                                             </p>
-                                            <p class="card-text">Tersedia : <span class="text-danger">0 (Dalam
-                                                    Peminjaman)</span></p>
+                                            <p class="card-text">Tersedia : 
+                                            @if ( $books_available[$row->id] == 0)
+                                                {{ '0 (Dalam Peminjaman)' }}
+                                            @else
+                                                {{ $books_available[$row->id] }}
+                                            @endif</p>
                                             <div class="review">
                                                 <p class="stars font-stars">
                                                     4.9 <span class="icofont-star"></span> | 

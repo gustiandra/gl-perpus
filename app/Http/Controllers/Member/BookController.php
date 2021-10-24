@@ -38,9 +38,11 @@ class BookController extends Controller
             $is_borrowed = false;
         }
 
-        $total_borrow_user = Borrowing::where('user_id', Auth::user()->id)->where('return_at', null)->where('confirmed', 1)->get();
-        if (count($total_borrow_user) > 1) {
-            $is_borrowed = true;
+        if (!empty(Auth::user()->id)) {
+            $total_borrow_user = Borrowing::where('user_id', Auth::user()->id)->where('return_at', null)->where('confirmed', 1)->get();
+            if (count($total_borrow_user) > 1) {
+                $is_borrowed = true;
+            }
         }
 
         return view('member.book.show', [

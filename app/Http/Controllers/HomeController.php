@@ -26,14 +26,19 @@ class HomeController extends Controller
     {
         $books = Book::with('bookCode.borrowed', 'bookCategory')->latest()->get();
         foreach ($books as $book) {
+            $books_available[$book->id] = 0;
+            // Menghitung Total terpinjam
             $id = 0;
             foreach ($book->bookCode as $item) {
                 $code[$book->id][] = $item->id;
-
                 foreach ($item->borrowed as $borrow) {
                     if ($borrow->book_code_id == $code[$book->id][$id]) {
                         $borrows[$book->id][] = $item->borrowed;
                     }
+                }
+
+                if ($item->on_loan == 0) {
+                    $books_available[$book->id] += 1;
                 }
                 $id += 1;
             }
@@ -41,7 +46,8 @@ class HomeController extends Controller
 
         return view('member.home', [
             'books' => $books,
-            'borrows' => $borrows
+            'borrows' => $borrows,
+            'books_available' => $books_available,
         ]);
     }
 }
