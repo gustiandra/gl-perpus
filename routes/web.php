@@ -25,6 +25,8 @@ Auth::routes(['verify' => true]);
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/book/{book}', [BookController::class, 'show'])->name('book.show');
+Route::get('/book/', [BookController::class, 'index'])->name('book.index');
+Route::get('/category/', [BookController::class, 'index'])->name('category.index');
 
 Route::name('member.')
     ->middleware('auth', 'role:member')

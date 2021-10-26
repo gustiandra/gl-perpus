@@ -1,4 +1,4 @@
-@extends('member.layouts.app', ['title' => 'Beranda'])
+@extends('member.layouts.app', ['title' => 'Beranda', 'active' => 'beranda'])
 
 @section('content')
     <!-- ======= Hero Section ======= -->

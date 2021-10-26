@@ -14,6 +14,45 @@ use Illuminate\Support\Facades\DB;
 
 class BookController extends Controller
 {
+    public function index(Request $request, Book $all_books)
+    {
+
+
+        $q = $request->q;
+        $c = $request->category;
+
+        if ($q == null && $c != null) {
+            $all_books = [];
+            $all_books = Book::with('bookCategory')->latest()->get();
+            foreach ($all_books as $book) {
+                foreach ($book->bookCategory as $category) {
+                    if ($category->category_id == $c) {
+                        $books[] = $book;
+                    }
+                }
+            }
+        } else {
+            $books = $all_books->when($q, function ($query) use ($q) {
+                return $query->where('title', 'like', "%$q%");
+            })->get();
+
+            foreach ($books as $book) {
+                foreach ($book->bookCategory as $category) {
+                    // dd($book->bookCategory);
+                    if ($category->category_id == $c) {
+                        $books = [];
+                        $books[] = $book;
+                    }
+                }
+            }
+        }
+
+
+        $categories = Category::all();
+        $request = $request->all();
+
+        return view('member.book.index', compact('books', 'request', 'categories'));
+    }
     public function show(Book $book)
     {
         $book->load(['bookCategory' => function ($query) {

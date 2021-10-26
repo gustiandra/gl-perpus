@@ -22,9 +22,9 @@
                 <nav class="site-navigation position-relative text-right" role="navigation">
 
                     <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
-                        <li class="active"><a href="{{ route('home') }}" class="nav-link">Beranda</a></li>
-                        <li><a href="buku.html" class="nav-link">Buku</a></li>
-                        <li><a href="pricing.html" class="nav-link">Peraturan</a></li>
+                        <li class="@if($active == 'beranda') {{ 'active' }} @endif"><a href="{{ route('home') }}" class="nav-link">Beranda</a></li>
+                        <li class="@if($active == 'book') {{ 'active' }} @endif"><a href="{{ route('book.index') }}" class="nav-link">Buku</a></li>
+                        <li class="@if($active == 'category') {{ 'active' }} @endif"><a href="{{ route('category.index') }}" class="nav-link">Kategori</a></li>
                         <li><a href="pricing.html" class="nav-link">Kontak</a></li>
                         
                         @guest
