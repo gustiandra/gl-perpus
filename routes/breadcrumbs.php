@@ -94,3 +94,8 @@ Breadcrumbs::for('member.dashboard', function ($trail) {
 Breadcrumbs::for('member.profile', function ($trail) {
     $trail->push('Profil', route('member.profile'));
 });
+
+// Borrowed
+Breadcrumbs::for('member.borrowed.index', function ($trail) {
+    $trail->push('Peminjaman', route('member.borrowed.index'));
+});

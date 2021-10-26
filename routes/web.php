@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Member\BookController;
+use App\Http\Controllers\Member\BorrowedController;
 use App\Http\Controllers\Member\ProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -26,7 +27,8 @@ Auth::routes(['verify' => true]);
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/book/{book}', [BookController::class, 'show'])->name('book.show');
 Route::get('/book/', [BookController::class, 'index'])->name('book.index');
-Route::get('/category/', [BookController::class, 'index'])->name('category.index');
+Route::get('/peraturan/', [HomeController::class, 'peraturan'])->name('peraturan.index');
+
 
 Route::name('member.')
     ->middleware('auth', 'role:member')
@@ -40,5 +42,8 @@ Route::name('member.')
 
             // Pinjam Buku
             Route::post('/borrow/{book}', [BookController::class, 'borrow'])->name('book.borrow');
+
+            // Peminjaman Buku
+            Route::get('/borrowed/', [BorrowedController::class, 'index'])->name('borrowed.index');
         }
     );

@@ -49,7 +49,7 @@
                         <select name="category" id="" class="form-control">
                             <option value="">Semua</option>
                             @foreach ($categories as $item)                                
-                                <option value="{{ $item->id }}" @if($request['category'] == $item->id) {{ 'selected' }} @endif>{{ $item->name }}</option>
+                                <option value="{{ $item->id }}" @if(isset($request['category'])) @if($request['category'] == $item->id) {{ 'selected' }} @endif @endif>{{ $item->name }}</option>
                             @endforeach
                         </select>
                     </div>

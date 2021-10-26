@@ -121,6 +121,12 @@
                             <span>Profil</span>
                         </a>
                     </li>
+                    <li class="sidebar-item @if ($active == 'borrowed') {{ 'active' }} @endif">
+                        <a href="{{ route('member.borrowed.index') }}" class='sidebar-link'>
+                            <i class="bi bi-journals"></i>
+                            <span>Peminjaman</span>
+                        </a>
+                    </li>
 
                     @endif
                     {{-- End Sidebar Admin --}}

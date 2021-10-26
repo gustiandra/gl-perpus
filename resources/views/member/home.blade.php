@@ -27,7 +27,7 @@
                             <h1 data-aos="fade-right">Pinjam Buku Lebih Mudah Dengan <br>GL-Perpus</h1>
                             <p class="mb-5" data-aos="fade-right" data-aos-delay="100">Developed by Gustiandra Lesmana.
                             </p>
-                            <p data-aos="fade-right" data-aos-delay="200" data-aos-offset="-500"><a href="#"
+                            <p data-aos="fade-right" data-aos-delay="200" data-aos-offset="-500"><a href="{{ route('book.index') }}"
                                     class="btn btn-outline-white">Cari Buku</a></p>
                         </div>
                         <div class="col-lg-5 iphone-wrap">

@@ -24,7 +24,7 @@
                     <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
                         <li class="@if($active == 'beranda') {{ 'active' }} @endif"><a href="{{ route('home') }}" class="nav-link">Beranda</a></li>
                         <li class="@if($active == 'book') {{ 'active' }} @endif"><a href="{{ route('book.index') }}" class="nav-link">Buku</a></li>
-                        <li class="@if($active == 'category') {{ 'active' }} @endif"><a href="{{ route('category.index') }}" class="nav-link">Kategori</a></li>
+                        <li class="@if($active == 'peraturan') {{ 'active' }} @endif"><a href="{{ route('peraturan.index') }}" class="nav-link">Peraturan</a></li>
                         <li><a href="pricing.html" class="nav-link">Kontak</a></li>
                         
                         @guest
@@ -32,7 +32,7 @@
                         <li><a href="{{ route('register') }}" class="nav-link btn btn-sm btn-primary text-white">Registrasi</a></li>
                         @else
                             <li class="has-children">
-                                <a href="blog.html" class="nav-link">{{ Auth::user()->name }}</a>
+                                <a href="#" class="nav-link">{{ Auth::user()->name }}</a>
                                 <ul class="dropdown">
                                     <li><a href="{{ route('member.dashboard') }}" class="nav-link">Dashboard</a></li>
                                     <li><a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault();
