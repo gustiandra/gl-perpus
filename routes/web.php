@@ -45,5 +45,6 @@ Route::name('member.')
 
             // Peminjaman Buku
             Route::get('/borrowed/', [BorrowedController::class, 'index'])->name('borrowed.index');
+            Route::post('/rating/{borrowing}', [BorrowedController::class, 'rating'])->name('rating.store');
         }
     );

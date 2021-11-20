@@ -1,0 +1,66 @@
+@import url(/public/dist/assets/vendors/fontawesome/all.min.css);
+form,
+label {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 20px;
+}
+
+.content {
+    width: 408px;
+    border: 1px #ccc solid;
+    padding: 15px;
+    margin: auto;
+    height: 200px;
+}
+
+.rating {
+    border: none;
+    float: left;
+}
+
+.rating>input {
+    display: none;
+}
+
+
+.rating>label {
+    color: #ddd;
+    float: right;
+}
+
+.rating>input:checked~label,
+.rating:not(:checked)>label:hover,
+.rating:not(:checked)>label:hover~label {
+    color: #f7d306;
+}
+
+.rating>input:checked+label:hover,
+.rating>input:checked~label:hover,
+.rating>label:hover~input:checked~label,
+.rating>input:checked~label:hover~label {
+    color:  #f7d306;
+}
+
+h4 {
+    font-weight: normal;
+    margin-top: 40px;
+    margin-bottom: 0px;
+}
+
+#hasil {
+    font-size: 20px;
+}
+
+#star {
+    float: left;
+    padding-right: 20px;
+}
+
+#star span {
+    padding: 3px;
+    font-size: 20px;
+}

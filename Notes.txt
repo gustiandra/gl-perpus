@@ -1,0 +1,7 @@
+Delete file bookcontroller
+Nama file buku tdak  boleh(: , dll)
+name file tereplace jika sama
+Update profile kembali menunggu
+Member aktif masih bisa update 
+Menampilkan tanggal
+header dashboard di beranda untuk admin ubah agar dihubungkan ke dashboard admin
